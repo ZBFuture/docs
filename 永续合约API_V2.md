@@ -288,7 +288,7 @@ public class HmacSHA256Base64Utils {
 
 ## 3.  服务端地址
 
-https://futures.zb.land
+https://futures.zb.work
 
 
 
@@ -303,7 +303,7 @@ https://futures.zb.land
 
 | 参数名称 | 类型   | 是否可空 | 描述                                    |
 | -------- | ------ | -------- | --------------------------------------- |
-| futuresAccountType     | Int    | 否       | 合约类型，1:USDT合约，2:币本位合约 |
+| futuresAccountType     | Int    | 否       | 合约类型，1:USDT合约 |
 |convertUnit |否  |String | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,usdt,btc,默认cny    |
 
   - 响应结果:
@@ -393,7 +393,7 @@ https://futures.zb.land
      |marketId |否  |Long | 市场id和市场名称必选其一    |
      |symbol |否  |String | 市场id和市场名称必选其一    |
      |side |否  |Integer | 1 多仓  0 空仓    |
-     |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
      
   - 响应结果:
     ```json
@@ -494,8 +494,8 @@ https://futures.zb.land
 
      |参数名|必选|类型|说明|
      |:----    |:---|:----- |:-----   |
-     |positionsId |否  |Long | 仓位Id    |
-     |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+     |positionsId |是  |Long | 仓位Id    |
+     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
      
   - 响应结果:
     ```json
@@ -536,7 +536,7 @@ https://futures.zb.land
     |positionsId |是  |Long | 仓位id    |
     |amount |是  |BigDecimal | 变更数量    |
     |type |是  |Integer | 1: 增加  0：减少    |
-    |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+    |futuresAccountType |是  |Integer | 1:USDT永续合约    |
     
   - 响应结果:
     ```json
@@ -572,12 +572,6 @@ https://futures.zb.land
     
      响应参数说明 data：
      见 仓位查询接口
-    
-     
-    
-     
-    
-     
 
 ### 4.5 仓位杠杆设置
 - URL: /Server/api/v2/setting/setLeverage
@@ -598,7 +592,7 @@ https://futures.zb.land
     |marketId |否  |Long | 市场id和市场名称必选其一    |
     |symbol |否  |String | 市场id和市场名称必选其一    |
     |leverage |是  |Integer | 杠杆倍数    |
-    |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+    |futuresAccountType |是  |Integer | 1:USDT永续合约    |
   
   - 响应结果:
     ```json
@@ -645,6 +639,7 @@ https://futures.zb.land
       ```
     {
         "marketId":100,
+        "symbol":"BTC_USDT",
         "positionsMode":1,
         "futuresAccountType":1
     }
@@ -656,7 +651,7 @@ https://futures.zb.land
     |marketId |否  |Long | 市场id和市场名称必选其一    |
     |symbol |否  |String | 市场id和市场名称必选其一    |
     |positionsMode |是  |Integer | 1:单向持仓，2: 双向持仓    |
-    |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+    |futuresAccountType |是  |Integer | 1:USDT永续合约    |
     
   - 响应结果:
     ```json
@@ -714,7 +709,7 @@ https://futures.zb.land
     |marketId |否  |Long | 市场id和市场名称必选其一    |
     |symbol |否  |String | 市场id和市场名称必选其一    |
     |marginMode |是  |Integer | 1逐仓（默认），2全仓    |
-    |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+    |futuresAccountType |是  |Integer | 1:USDT永续合约    |
     
   - 响应结果:
     ```json
@@ -764,7 +759,7 @@ https://futures.zb.land
      |marketId |否  |Long | 市场id和市场名称必选其一    |
      |symbol |否  |String | 市场id和市场名称必选其一    |
      |side |是  |Integer | 方向：1：开多   0 开空    |
-     |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
    
   - 响应结果:
     ```json
@@ -805,7 +800,7 @@ https://futures.zb.land
      |endTime |否  |Long |结束时间戳   |
      |pageNum |否  |Integer | 页码    |
      |pageSize |否  |Integer | 每页行数，默认10    |
-     |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 
   - 响应结果:
     ```json
@@ -939,7 +934,7 @@ https://futures.zb.land
 
       |参数名|必选|类型|说明|
       |:----    |:---|:----- |:-----   |
-      |symbol |否  |Long | 市场,如 ETH_USDT    |
+      |symbol |否  |String | 市场,如 ETH_USDT    |
       |startTime |否  |Long | 毫秒时间戳    |
       |endTime |否  |Long | 毫秒时间戳    |
       |type |否  |Integer | 调整方向 1: 增加逐仓保证金，0: 减少逐仓保证金    |
@@ -956,7 +951,7 @@ https://futures.zb.land
               {
                 "symbol": "ETH_USDT",
                 "asset": "usdt",
-                "amount": "1.000000000000000",
+                "amount": "USDT:9982.66756951, BTC:0.999540947",
                 "type": 1,
                 "isAuto": 0,
                 "contractType": 1,
@@ -985,12 +980,12 @@ https://futures.zb.land
       |参数名|必选|类型|说明|
       |:----    |:---|:----- |:-----   |
       |symbol |是  |String |市场，如ETH_USDT   |
-      |asset |是  |Long | 保证金币种，可能1个或者多个，如 USDT,ETH    |
+      |asset |是  |String | 保证金币种，可能1个或者多个，如 USDT,ETH    |
       |amount     |是  |String | 保证金数量，可能多个，如 USDT:121210.00001, ETH:0.0002    |
       |type     |是  | | 调整方向 1: 增加逐仓保证金，0: 减少逐仓保证金   |
       |isAuto     |否  |Integer | 是否自动，默认否 0，1为是    |
       |contractType     |否  |Long | 合约类型    |
-      |positionSide |是  |BigDecimal |持仓方向:LONG SHORT BOTH   如果单向持仓就是LONG/SHORT   双向持仓：BOTH   |
+      |positionSide |是  |String |持仓方向:LONG SHORT BOTH   如果单向持仓就是LONG/SHORT   双向持仓：BOTH   |
       |createTime |是  |Integer | 创建时间    |
 
 
@@ -1008,7 +1003,8 @@ https://futures.zb.land
      |参数名|必选|类型|说明|
      |:----    |:---|:----- |:-----   |
      |marketId |是  |Long | 市场id    |
-     |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+     |symbol |是  |String | 市场名称    |
+     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
      
   - 响应结果:
     ```json
@@ -1051,7 +1047,7 @@ https://futures.zb.land
     
      
 
-### 4.13 通过userid，currencyId查询资金
+### 4.13 通过userid，currencyName 查询资金
   - 如果没有记录不会创建一条空记录
   - URL: /Server/api/v2/Fund/balance
   - 接口类型: Http
@@ -1061,7 +1057,8 @@ https://futures.zb.land
      |参数名|必选|类型|说明|
      |:----    |:---|:----- |:-----   |
      |currencyId |否  |String | 币种id    |
-     |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+     |currencyName |否  |String | 币种名称    |
+     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
      
   - 响应结果:
     ```json
@@ -1105,9 +1102,9 @@ https://futures.zb.land
     |amount     |是  |BigDecimal | 可用资产量    |
     |freezeAmount     |是  |BigDecimal | 冻结量    |
     |id     |否  |Long | 资金id    |
-    |accountBalance     |否  |Long | 账户余额    |
-    |allUnrealizedPnl     |否  |Long | 账户未实现盈亏    |
-    |allMargin     |否  |Long | 账户保证金    |
+    |accountBalance     |否  |BigDecimal | 账户余额    |
+    |allUnrealizedPnl     |否  |BigDecimal | 账户未实现盈亏    |
+    |allMargin     |否  |BigDecimal | 账户保证金    |
     |createTime     |否  |Long | 创建时间    |
     
      
@@ -1130,9 +1127,9 @@ https://futures.zb.land
 
     |参数名|必选|类型|说明|
     |:----    |:---|:----- |:-----   |
-    |positionsId |否  |Long | 仓位ID    |
+    |positionsId |是  |Long | 仓位ID    |
     |maxAdditionalUSDValue |是  |BigDecimal | 设置增加的保证金数量，如果为0会关闭自动增加保证金    |
-    |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+    |futuresAccountType |是  |Integer | 1:USDT永续合约    |
     
   - 响应结果: 返回仓位对象信息
     ```json
@@ -1157,7 +1154,7 @@ https://futures.zb.land
       ```
     {
         "marginCoins":"eth,usdt,qc",
-        "marketId":101,
+        "symbol":"BTC_USDT",
         "futuresAccountType":1
     }
     
@@ -1165,10 +1162,9 @@ https://futures.zb.land
 
     |参数名|必选|类型|说明|
     |:----    |:---|:----- |:-----   |
-    |marketId |否  |Long | 市场id和市场名称必选其一    |
-    |symbol |否  |String | 市场id和市场名称必选其一    |
+    |symbol |否  |String | 市场名称    |
     |marginCoins |是  |String | 设置保证金顺序    |
-    |futuresAccountType |是  |Integer | 1:USDT永续合约  2：币本位合约    |
+    |futuresAccountType |是  |Integer | 1:USDT永续合约    |
     
   - 响应结果: 返回仓位对象信息
     ```json
@@ -1256,7 +1252,7 @@ https://futures.zb.land
     示例
 
     ```json
-    [{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1100","action":1,"entrustType":1},{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1000","action":1,"entrustType":1}]
+    [{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1100","action":1},{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1000","action":1}]
     ```
 
 | 名称       | 类型   | 是否必须 | 描述                                       |
@@ -1415,11 +1411,14 @@ orderIds 与 clientOrderIds 选填1个
   - 请求类型: GET
   - 请求参数:
 
-| 名称     | 类型   | 是否必须 | 描述                                              |
-| :------- | :----- | :------- | :------------------------------------------------ |
-| symbol   | String | 是       | 交易对，如：BTC_USDT                              |
-| pageNum  | INT    | 否       | 页码，从1开始，默认是1                            |
-| pageSize | INT    | 否       | 分页返回的结果集数量，最大为100，不填默认返回30条 |
+| 名称     | 类型   | 是否必须 | 描述                                                         |
+| :------- | :----- | :------- | :----------------------------------------------------------- |
+| symbol   | String | 是       | 交易对，如：BTC_USDT                                         |
+| type     | 否     | Integer  | 类型: -1 卖, 1 买， 0或空则查询全部                          |
+| side     | 否     | Integer  | 方向， 0或空则查询全部<br/>1开多（买入）<br/>2开空（卖出）<br/>3平多（卖出）<br/>4平空（买入） |
+| action   | 否     | Integer  | 订单价格类型， 0或空则查询全部  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
+| pageNum  | INT    | 否       | 页码，从1开始，默认是1                                       |
+| pageSize | INT    | 否       | 分页返回的结果集数量，最大为100，不填默认返回30条            |
 
   - 响应结果:
 
@@ -1479,7 +1478,7 @@ orderIds 与 clientOrderIds 选填1个
 | type            | 是   | Integer    | 委托类型: -1 卖, 1 买                                        |
 | action          | 是   | Integer    | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
 | showStatus      | 是   | Integer    | 状态: 1:未成交、2:部分成交（订单还在挂单中）、3:已完成、4：取消中、5:完全取消、6：取消失败、7：部分取消（订单已完成，部分成交） |
-| entrustType     | 是   | Integer    | 委托类型：1限价委托，2强制减仓，3强制平仓，4计划委托，5止盈，6止损 |
+| entrustType     | 是   | Integer    | 委托类型：1限价委托，2强制减仓，3强制平仓，4计划委托，5止盈，6止损，7自动减仓 |
 | side            | 是   | Integer    | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
 | sourceType      | 是   | Integer    | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈止损)<br/>9:Take Profit(止损) |
 | leverage        | 是   | Integer    | 杠杠倍数                                                     |
@@ -1501,13 +1500,16 @@ orderIds 与 clientOrderIds 选填1个
   - 请求类型: GET
   - 请求参数:
 
-| 名称      | 类型   | 是否必须 | 描述                                              |
-| :-------- | :----- | :------- | :------------------------------------------------ |
-| symbol    | String | 是       | 交易对，如：BTC_USDT                              |
-| startTime | LONG   | 否       | 起始时间                                          |
-| endTime   | LONG   | 否       | 结束时间                                          |
-| pageNum   | INT    | 否       | 页码，从1开始，默认是1                            |
-| pageSize  | INT    | 否       | 分页返回的结果集数量，最大为100，不填默认返回30条 |
+| 名称      | 类型   | 是否必须 | 描述                                                         |
+| :-------- | :----- | :------- | :----------------------------------------------------------- |
+| symbol    | String | 是       | 交易对，如：BTC_USDT                                         |
+| type      | 否     | Integer  | 类型: -1 卖, 1 买， 0或空则查询全部                          |
+| side      | 否     | Integer  | 方向， 0或空则查询全部<br/>1开多（买入）<br/>2开空（卖出）<br/>3平多（卖出）<br/>4平空（买入） |
+| action    | 否     | Integer  | 订单价格类型， 0或空则查询全部  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
+| startTime | LONG   | 否       | 起始时间                                                     |
+| endTime   | LONG   | 否       | 结束时间                                                     |
+| pageNum   | INT    | 否       | 页码，从1开始，默认是1                                       |
+| pageSize  | INT    | 否       | 分页返回的结果集数量，最大为100，不填默认返回30条            |
 
   - 响应结果:
 
@@ -1720,7 +1722,7 @@ orderId 与 clientOrderId 选填1个
 
 ### 5.11 委托策略下单
 
-- 说明：查询已完成或已取消状态的订单
+- 说明：使用不同的委托策略下单
 
 - URL: /Server/api/v2/trade/orderAlgo
 
@@ -1779,7 +1781,7 @@ orderId 与 clientOrderId 选填1个
 
 ### 5.12委托策略撤单		
 
-- 说明：查询已完成或已取消状态的订单
+- 说明：撤销计划委托单和止盈止损委托单
 
 - URL: /Server/api/v2/trade/cancelAlgos
 
@@ -1971,7 +1973,7 @@ orderId 与 clientOrderId 选填1个
 
 ## 6. 公共行情：Http
 
-地址：https://futures.zb.land
+地址：https://futures.zb.work
 
 ### 6.1 交易对
   - URL: /Server/api/v2/config/marketList
@@ -1981,7 +1983,7 @@ orderId 与 clientOrderId 选填1个
 
     | 名称         | 类型     | 是否必须 | 描述      |
     | :---------- | :----- | :--- | :------ |
-    | futuresAccountType | Integer | 否    | 合约类型，1:USDT合约（默认），2:币本位合约 |
+    | futuresAccountType | Integer | 否    | 合约类型，1:USDT合约（默认） |
 
   - 响应结果:
 
@@ -2050,7 +2052,7 @@ orderId 与 clientOrderId 选填1个
     | maxLeverage | Integer |     | 最大杠杆倍数 |
     | riskWarnRatio | BigDecimal |     | 风险提醒比例 |
     | defaultFeeRate | BigDecimal |     | 默认费率 |
-    | contractType | Integer |     | 合约类型，1:usdt合约（默认），<br/>2:币本位合约 |
+    | contractType | Integer |     | 合约类型，1:usdt合约（默认） |
     | duration | Integer |     | 合约时长，<br/>1:永续合约（默认），<br/>2:交割合约-当周，<br/>3:交割合约-次周，<br/>4:交割合约-当季，<br/>5:交割合约-次季 |
     | status | Integer |     | 状态: 1:运行, 0:停止（默认） |
     | createTime | Long |     | 创建时间 |
@@ -3223,7 +3225,7 @@ size最大值为100，默认值为1
 
 - 接口类型: WebSocket
 
-- URL: wss://futures.zb.land/ws/private/api/v2
+- URL: wss://futures.zb.work/ws/private/api/v2
 
 - **每个请求都必须有的参数：**
 
@@ -3355,9 +3357,9 @@ size最大值为100，默认值为1
 
 - **资金请求都必须有的参数：**
 
-  | 参数名             | 必选 | 类型    | 说明                          |
-  | :----------------- | :--- | :------ | :---------------------------- |
-  | futuresAccountType | 是   | Integer | 1:USDT永续合约  2：币本位合约 |
+  | 参数名             | 必选 | 类型    | 说明           |
+  | :----------------- | :--- | :------ | :------------- |
+  | futuresAccountType | 是   | Integer | 1:USDT永续合约 |
 
 #### 8.3.1、资金变动
 
@@ -3696,9 +3698,9 @@ size最大值为100，默认值为1
 
 - **仓位请求都必须有的参数：**
 
-  | 参数名             | 必选 | 类型    | 说明                          |
-  | :----------------- | :--- | :------ | :---------------------------- |
-  | futuresAccountType | 是   | Integer | 1:USDT永续合约  2：币本位合约 |
+  | 参数名             | 必选 | 类型    | 说明           |
+  | :----------------- | :--- | :------ | :------------- |
+  | futuresAccountType | 是   | Integer | 1:USDT永续合约 |
 
 
 #### 8.4.1、仓位变动
@@ -4311,15 +4313,14 @@ size最大值为100，默认值为1
 
   - **特有的参数：**
 
-    | 参数名      | 必选 | 类型    | 说明                                                         |
-    | :---------- | ---- | :------ | :----------------------------------------------------------- |
-    | channel     | 是   | String  | trade.order                                                  |
-    | symbol      | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
-    | price       | 是   | Decimal | 价格                                                         |
-    | amount      | 是   | Decimal | 数量                                                         |
-    | actionType  | 是   | Integer | 委托动作: 1 限价, 2 市价, 3 IOC, 4 只做 maker, 5 FOK         |
-    | entrustType | 是   | Integer | 委托类型：1限价委托，2强平委托，3限价止盈，4限价止损         |
-    | side        | 是   | Integer | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
+    | 参数名     | 必选 | 类型    | 说明                                                         |
+    | :--------- | ---- | :------ | :----------------------------------------------------------- |
+    | channel    | 是   | String  | trade.order                                                  |
+    | symbol     | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
+    | price      | 是   | Decimal | 价格                                                         |
+    | amount     | 是   | Decimal | 数量                                                         |
+    | actionType | 是   | Integer | 委托动作: 1 限价, 2 市价, 3 IOC, 4 只做 maker, 5 FOK         |
+    | side       | 是   | Integer | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
   
 - 请求示例
 
@@ -4332,7 +4333,6 @@ size最大值为100，默认值为1
   "price":"65536",
   "amount":1,
   "actionType":1,
-  "entrustType":1,
   "side":1
 }
 ```
@@ -4892,7 +4892,7 @@ size最大值为100，默认值为1
   "action": "subscribe",
   "channel":"Trade.batchOrder",
   
-  "orderDatas":"[{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1100","action":1,"entrustType":1},{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1000","action":1,"entrustType":1}]"，
+  "orderDatas":"[{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1100","action":1},{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1000","action":1}]"，
 }
 ```
 
@@ -4931,122 +4931,264 @@ size最大值为100，默认值为1
 
 ## 9.错误码 
 
-10000    操作成功
-10001    操作失败
-10002    操作被禁止
-10003    数据已存在
-10004    数据不存在
-10005    禁止访问接口
-10006    token无效或已过期
-10007    {0}参数错误
-10008    操作失败：{0}
-10009    URL错误
-10010    API KEY不存在
-10011    API KEY已关闭
-10012    用户API已被冻结，请联系客服处理
-10013    api校验失败
+10000	操作成功
 
-10014    无效的签名(1001)
+10001	操作失败
 
-10015    无效的签名(1002)
-10016    无效的ip
-10017    没有权限
-10018    用户已被冻结，请联系客服处理
-10019    请求时间已失效
-10020    {0}参数不能为空
-10021    {0}参数值无效
-10022    请求method错误
-10023    用户请求频率过快，超过该接口允许的限额
-10024    登录失败
-10025    非本人操作
-10026    请求接口失败，请您重试
-10027    请求超时，请稍后再试
-10028    系统繁忙，请稍后再试
-10029    操作频繁，请稍后再试
-10030    币种已存在
-10031    币种不存在
-10032    市场已存在
-10033    市场不存在
-10034    币种错误
-10035    市场未开放
-10036    无效的市场类型
-10037    用户id不能为空
-10038    市场id不能为空
-10039    标记价格获取失败
-10040    开仓保证金配置获取失败
-10041    维持保证金配置获取失败
-10043    强平价格获取异常
-10044    未实现盈亏获取异常
-10046    无效的开仓方向
-10047    已超过当前杠杆倍数允许的最大头寸
-10048    已超过最大允许的下单数量
+10002	操作被禁止
 
-11000    资金变更失败
-11001    仓位变更失败
-11002    资金不存在
-11003    冻结记录不存在
-11004    冻结资金不足
-11005    仓位不足
-11006    冻结仓位不足
-11007    仓位不存在
-11008    该合约有持仓,禁止修改
-11009    查询数据失败
-110110    超过市场最大杠杆倍数
-110011    超过仓位允许最大杠杆倍数
-11012    保证金不足
-11013    超出精度限制
-11014    账单类型无效
-11015    添加默认账户失败
-11016    账户不存在
-11017    资金未冻结或已解冻
-11018    资金不足
-11019    账单不存在
-11021    资金划转币种不一致
-11023    交易币种相同
-11030    仓位被锁定
-11031    账单变化数量为零
-11032    有相同请求处理中，请勿重复提交。
-11033    仓位配置数据为空
-11034    资金费正在结算，请勿操作
+10003	数据已存在
 
-12000    下单价格无效
-12001    下单数量无效
-12002    订单类型无效
-12003    价格精度无效
-12004    数量精度无效
-12005    下单数量太小
-12006    自定义的订单号格式错误
-12007    side错误
-12008    下单类型错误
-12009    委托类型错误
-12010    下单失败，以此价格下单成交亏损金额将超过保证金
-12012    订单不存在
-12013    订单用户不匹配
-12014    订单仍在交易中
-12015    订单预处理失败
-12016    订单不能取消
-12017    成交记录不存在
-12018    下单失败
-12019    extend参数不能为空
-12020    extend参数错误
-12100    委托繁忙，请稍后再试
-12201    委托策略不存在或状态已变更
-12202    托策略状态已变更，不能取消
-12203    orderType类型错误
-12204    触发价格无效
-12205    触发价必须大于当前行情的卖1档价格或小于买1档价格
-12206    side和orderType不匹配
-12207    提交失败，超过允许添加的上限
+10004	数据不存在
 
-13001    用户不存在
-13002    用户未开启合约
-13003    用户被锁定
-13003    保证金档位不连续
-13004    保证金速算额小于0
-13005    您已超过了当天导出的次数
+10005	禁止访问接口
 
-14000    {0} 不支持
-14001    已登录，不需多次登录
-14002    还未登录，请先登录再订阅
-14003    这是用于一次性查询的频道，不需要取消订阅
-14100    精度不支持
+10006	token无效或已过期
+
+10007	{0}参数错误
+
+10008	操作失败: %s
+
+10009	URL错误
+
+10010	API KEY不存在
+
+10011	API KEY已关闭
+
+10012	用户API已被冻结，请联系客服处理
+
+10013	api校验失败
+
+10014	无效的签名(1001)
+
+10015	无效的签名(1002)
+
+10016	无效的ip
+
+10017	没有权限
+
+10018	用户已被冻结，请联系客服处理
+
+10019	请求时间已失效
+
+10020	{0}参数不能为空
+
+10021	{0}参数值无效
+
+10022	请求method错误
+
+10023	用户请求频率过快，超过该接口允许的限额
+
+10024	登录失败
+
+10025	非本人操作
+
+10026	请求接口失败，请您重试
+
+10027	请求超时，请稍后再试
+
+10028	系统繁忙，请稍后再试
+
+10029	操作频繁，请稍后再试
+
+10030	币种已存在
+
+10031	币种不存在
+
+10032	市场已存在
+
+10033	市场不存在
+
+10034	币种错误
+
+10035	市场未开放
+
+10036	无效的市场类型
+
+10037	用户id不能为空
+
+10038	市场id不能为空
+
+10039	标记价格获取失败
+
+10040	开仓保证金配置获取失败
+
+10041	维持保证金配置获取失败
+
+10042	avg price error
+
+10043	强平价格获取异常
+
+10044	未实现盈亏获取异常
+
+10045	jdbc数据源获取失败
+
+10046	无效的开仓方向
+
+10047	已超过当前杠杆倍数允许的最大头寸
+
+10048	已超过最大允许的下单数量
+
+11000	资金变更失败
+
+11001	仓位变更失败
+
+11002	资金不存在
+
+11003	冻结记录不存在
+
+11004	冻结资金不足
+
+11005	仓位不足
+
+11006	冻结仓位不足
+
+11007	仓位不存在
+
+11008	该合约有持仓,禁止修改
+
+11009	查询数据失败
+
+110110	超过市场最大杠杆倍数
+
+110011	超过仓位允许最大杠杆倍数
+
+11012	保证金不足
+
+11013	超出精度限制
+
+11014	账单类型无效
+
+11015	添加默认账户失败
+
+11016	账户不存在
+
+11017	资金未冻结或已解冻
+
+11018	资金不足
+
+11019	账单不存在
+
+11021	资金划转币种不一致
+
+11023	交易币种相同
+
+11024	RocksDB检测死锁
+
+11025	RocksDB出错
+
+11030	仓位被锁定，禁止操作
+
+11031	账单变化数量为零
+
+11032	有相同请求处理中，请勿重复提交。
+
+11033	仓位配置数据为空
+
+11034	资金费正在结算，请勿操作
+
+12000	下单价格无效
+
+12001	下单数量无效
+
+12002	订单类型无效
+
+12003	价格精度无效
+
+12004	数量精度无效
+
+12005	下单数量太小
+
+12006	自定义的订单号格式错误
+
+12007	side错误
+
+12008	下单类型错误
+
+12009	委托类型错误
+
+12010	下单失败，以此价格下单成交亏损金额将超过保证金
+
+12011	it's not a buz order
+
+12012	订单不存在
+
+12013	订单用户不匹配
+
+12014	订单仍在交易中
+
+12015	订单预处理失败
+
+12016	订单不能取消
+
+12017	成交记录不存在
+
+12018	下单失败
+
+12019	extend参数不能为空
+
+12020	extend参数错误
+
+12021	下单价格不在限价规则范围内！
+
+12022	系统计算资金费中，停止下单
+
+12023	没有需要平仓的仓位
+
+12025	系统维护，停止交易
+
+12025	系统维护，停止撤单
+
+12100	委托繁忙，请稍后再试
+
+12201	委托策略不存在或状态已变更
+
+12202	托策略状态已变更，不能取消
+
+12203	orderType类型错误
+
+12204	触发价格无效
+
+12205	触发价必须大于当前行情的卖1档价格或小于买1档价格
+
+12206	side和orderType不匹配
+
+12207	提交失败，超过允许添加的上限
+
+13001	用户不存在
+
+13002	用户未开启合约
+
+13003	用户被锁定
+
+13003	保证金档位不连续
+
+13004	保证金速算额小于0
+
+13005	您已超过了当天导出的次数
+
+13006	未收藏任何市场
+
+13007	市场未收藏
+
+14000	{0} 不支持
+
+14001	已登录，不需多次登录
+
+14002	还未登录，请先登录再订阅
+
+14003	这是用于一次性查询的频道，不取消取消订阅
+
+14100	精度不支持
+
+9001	仓位不存在
+
+9002	仓位数量为0
+
+9003	仓位不是锁定状态不能转移仓位
+
+9004	已接管该仓位，不需要重复操作
+
+9999	未知错误
+
+
