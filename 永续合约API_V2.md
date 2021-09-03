@@ -59,7 +59,7 @@ ZB-LAN: cn
 
   request query/request body字符串：是按照ASCII码顺序进行排序，将各参数使用字符 “&” 连接
 
-  SecretKey为用户申请APIKey时所生成，需用sha加密。如：`ceb892e0-0367-4cc1-88d1-ef9289feb053`，加密SecretKey得到：c9a206b430d6c6a43322a05806acb5f9514ac488
+  SecretKey为用户申请APIKey时所生成，***<u>需用sha加密</u>***。如：`ceb892e0-0367-4cc1-88d1-ef9289feb053`，加密SecretKey得到：c9a206b430d6c6a43322a05806acb5f9514ac488
   
   在线加密工具: http://tool.oschina.net/encrypt?type=2
 
@@ -1203,6 +1203,43 @@ https://futures.zb.work
     |modifyTime     |是  |Long | 更新时间    |
     |extend     |是  |String | 备用字段    |
 
+### 4.16 合约和现货之间资金划转
+
+- URL: /Server/api/v2/Fund/transferFund
+  - 接口类型: Http
+  - 请求类型: POST
+  - 请求参数: 
+      ```
+    {
+        "currencyName":"USDT",
+        "amount":"12.12",
+        "clientId"："2sdfsdfsdf232342",
+        "side"："1"
+    }
+    
+    ```
+
+    |参数名|必选|类型|说明|
+    |:----    |:---|:----- |:-----   |
+    |currencyName |是  |String | 币种名称    |
+    |amount |是  |BigDecimal | 划转数量    |
+    |clientId |是  |String | uuid，保持幂等性    |
+    |side |是  |Integer | 1：充值（现货账户->合约账户），0：提币（合约账户->现货账户） |
+    
+  - 响应结果: 返回仓位对象信息
+    ```json
+     {
+       "code": 10000,
+       "data": "2sdfsdfsdf232342",
+       "desc": "操作成功"
+     }
+    ```
+
+    |参数名|必选|类型|说明|
+    |:----    |:---|:----- |:-----   |
+    |data |是  |String |操作成功返回幂等id，否则返回null   |
+
+
 
 ## 5. 合约交易
 
@@ -1217,7 +1254,7 @@ https://futures.zb.work
 | :------------ | :--------- | :------- | :----------------------------------------------------------- |
 | symbol        | String     | 是       | 交易对，如：BTC_USDT                                         |
 | action        | 是         | Integer  | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/>默认是1 |
-| side          | 是         | Integer  | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出） |
+| side          | 是         | Integer  | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />3 平空（买入) |
 | amount        | BigDecimal | 是       | 委托数量                                                     |
 | price         | BigDecimal | 是       | 委托价格                                                     |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
@@ -2111,7 +2148,8 @@ orderId 与 clientOrderId 选填1个
               16131.36,
               8.85
             ]
-          ]
+          ],
+          "time":  1630657743231  //当前服务器时间
     	}
     }
     ```
@@ -2832,7 +2870,7 @@ size最大值为10，默认值为5
 ```json
 {
   "channel": "BTC_USDT.DepthWhole@0.01",
-	"data"：{
+	"data": {
     "asks":[					 //卖盘
       [
         16146.91,				//价格
@@ -2841,8 +2879,7 @@ size最大值为10，默认值为5
       [
         16146.93,
         0.129334
-      ],
-      ......
+      ]
     ],
     "bids":[							//买盘
       [
@@ -2852,9 +2889,9 @@ size最大值为10，默认值为5
       [
         16131.36,
         2
-      ],
-      ......
-    ]
+      ]
+    ],
+    "time":  1630657743231  //当前服务器时间
 	}
 }
 ```
@@ -2898,7 +2935,8 @@ size最大值为10，默认值为5
 			16131.36,
 			8.85
 		]
-	]
+	],
+  "time":  1630657743231  //当前服务器时间
   }
 }
 ```
@@ -2931,7 +2969,8 @@ size最大值为10，默认值为5
 			16131.36,
 			2
 		]
-	]
+	],
+  "time":  1630657743231  //当前服务器时间
   }
 }
 ```
@@ -4319,7 +4358,7 @@ size最大值为100，默认值为1
     | symbol     | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
     | price      | 是   | Decimal | 价格                                                         |
     | amount     | 是   | Decimal | 数量                                                         |
-    | actionType | 是   | Integer | 委托动作: 1 限价, 2 市价, 3 IOC, 4 只做 maker, 5 FOK         |
+    | actionType | 是   | Integer | 1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/> |
     | side       | 是   | Integer | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
   
 - 请求示例
@@ -5190,5 +5229,4 @@ size最大值为100，默认值为1
 9004&nbsp;&nbsp;&nbsp;&nbsp;已接管该仓位，不需要重复操作
 
 9999&nbsp;&nbsp;&nbsp;&nbsp;未知错误
-
 
