@@ -1172,7 +1172,7 @@ https://futures.zb.team
 
     |参数名|必选|类型|说明|
     |:----    |:---|:----- |:-----   |
-    |symbol |否  |String | 市场名称    |
+    |symbol |是  |String | 市场名称    |
     |marginCoins |是  |String | 设置保证金顺序    |
     |futuresAccountType |是  |Integer | 1:USDT永续合约    |
     
