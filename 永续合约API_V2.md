@@ -349,9 +349,6 @@ https://futures.zb.team
            "amount": 12.2,
            "freezeAmount": 1,
            "id": 6740243890479048704,
-           "accountBalance": 1212.12,
-           "allUnrealizedPnl": -112.12,
-           "allMargin": 1212.12,
            "createTime": 1606999371166,
            "modifyTime": 1607003956239,
            "extend": null
@@ -771,7 +768,7 @@ https://futures.zb.team
      |:----    |:---|:----- |:-----   |
      |marketId |否  |Long | 市场id和市场名称必选其一    |
      |symbol |否  |String | 市场id和市场名称必选其一    |
-     |side |是  |Integer | 方向：1：开多   0 开空    |
+     |side |否  |Integer | 方向：1：开多   0 开空    |
      |futuresAccountType |是  |Integer | 1:USDT永续合约    |
    
   - 响应结果:
@@ -793,8 +790,8 @@ https://futures.zb.team
     |side |是  |Long | 1:多仓 0：空仓    |
     |nominalValue |否  |BigDecimal |用户仓位头寸名义价值 （传side时返回）  |
     |openOrderNominalValue     |否  |BigDecimal | 委托单头寸名义价值（传side时返回）    |
-    |longNominalValue |否  |BigDecimal |用户多仓位头寸名义价值 （传side时返回）  |
-    |shortNominalValue |否  |BigDecimal |用户空仓位头寸名义价值 （传side时返回）  |
+    |longNominalValue |否  |BigDecimal |用户多仓位头寸名义价值 （不传side时返回）  |
+    |shortNominalValue |否  |BigDecimal |用户空仓位头寸名义价值 （不传side时返回）  |
     |openOrderLongNominalValue     |否  |BigDecimal | 委托单多仓头寸名义价值 （不传side时返回）   |
     |openOrderShortNominalValue     |否  |BigDecimal | 委托单空仓头寸名义价值 （不传side时返回）   |
 
@@ -1235,8 +1232,8 @@ https://futures.zb.team
     |参数名|必选|类型|说明|
     |:----    |:---|:----- |:-----   |
     |currencyName |是  |String | 币种名称    |
-    |amount |是  |BigDecimal | 划转数量    |
-    |clientId |是  |String | uuid，保持幂等性    |
+    |amount |是  |BigDecimal | 划转数量,进度参考币种信息    |
+    |clientId |是  |String | 唯一id，保持幂等性，不能为空或长度不能超过18    |
     |side |是  |Integer | 1：充值（zb账户->合约账户），0：提币（合约账户->zb账户）    |
     
   - 响应结果: 返回仓位对象信息
