@@ -1264,7 +1264,7 @@ https://futures.zb.team
 | :------------ | :--------- | :------- | :----------------------------------------------------------- |
 | symbol        | String     | 是       | 交易对，如：BTC_USDT                                         |
 | action        | 是         | Integer  | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/>默认是1 |
-| side          | 是         | Integer  | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />3 平空（买入) |
+| side          | 是         | Integer  | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />4 平空（买入) |
 | amount        | BigDecimal | 是       | 委托数量                                                     |
 | price         | BigDecimal | 是       | 委托价格                                                     |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
