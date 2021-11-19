@@ -1302,8 +1302,21 @@ https://futures.zb.team
 
     示例
 
-    ```json
-    "orderDatas": [{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1100","action":1, "orderCode": "test01"},{"symbol":"ETH_USDT","amount":1,"side":1,"price":"1000","action":1, "orderCode": "test02"}]
+  ```json
+ 
+    {
+      "orderDatas": [
+      {
+        "symbol":"ETH_USDT",
+        "amount":1,"side":1,"price":"1100","action":1, "orderCode": "test01"
+      },
+      {
+        "symbol":"ETH_USDT",
+        "amount":1,"side":1,"price":"1000","action":1, "orderCode": "test02"
+      }
+    ]
+    }
+    
     ```
 
 | 名称       | 类型 | 是否必须 | 描述           |
