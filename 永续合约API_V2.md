@@ -301,7 +301,7 @@ public class HmacSHA256Base64Utils {
 
 ## 3.  服务端地址
 
-https://futures.zb.team
+https://fapi.zb.com
 
 
 
