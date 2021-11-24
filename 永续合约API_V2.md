@@ -3588,7 +3588,6 @@ size最大值为100，默认值为1
   "channel":"Fund.change",
   "data":{
     "amount":"6.2026735",
-    "balance":"31610.77759177923445",
     "createTime":"1610972128891",
     "currencyId":"6",
     "freezeAmount":"31604.57491827923445",
@@ -3599,7 +3598,17 @@ size最大值为100，默认值为1
 }
 ```
 
+- 响应参数说明
 
+| 参数名           | 类型       | 说明           |
+| :--------------- | :--------- | :------------- |
+| userId           | Long       | 用户id         |
+| currencyId       | Long       | 币种id         |
+| currencyName     | String     | 币种名字       |
+| amount           | BigDecimal | 可用资产量     |
+| freezeAmount     | BigDecimal | 冻结量         |
+| id               | Long       | 资金id         |
+| createTime       | Long       | 创建时间       |
 
 
 #### 9.3.2、资金查询
@@ -3631,15 +3640,12 @@ size最大值为100，默认值为1
 {
     "channel":"Fund.balance",
     "data":[{
-				"allUnrealizedPnl":"5.50275",
-				"allMargin":"1.9441555",
 				"amount":"1001000201.96515424",
 				"freezeAmount":"1.9441555",
 				"currencyName":"usdt",
 				"createTime":"1614841089612",
  				"id":"6773134441524176896",
 				"currencyId":"6",
-				"accountBalance":"1001000209.41205974",
 				"userId":"6755772669834045440"
      }]
 }
@@ -3655,9 +3661,6 @@ size最大值为100，默认值为1
 | amount           | BigDecimal | 可用资产量     |
 | freezeAmount     | BigDecimal | 冻结量         |
 | id               | Long       | 资金id         |
-| accountBalance   | Long       | 账户余额       |
-| allUnrealizedPnl | Long       | 账户未实现盈亏 |
-| allMargin        | Long       | 账户保证金     |
 | createTime       | Long       | 创建时间       |
 
 ### 
