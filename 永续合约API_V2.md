@@ -749,10 +749,10 @@ https://fapi.zb.com
     |extend     |是  |String | 备用字段    |
 
 ### 4.6 仓位持仓模式设置
-- 暂未开通
+- 暂未开通，目前默认只支持双向持仓
 
 ### 4.7 仓位保证金模式设置
-- 暂未开通
+- 暂未开通，目前默认只支持逐仓
 
 ### 4.8 查看用户当前头寸
   - URL: /Server/api/v2/Positions/getNominalValue
