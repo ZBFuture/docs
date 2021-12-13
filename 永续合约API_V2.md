@@ -1267,6 +1267,15 @@ https://fapi.zb.com
 | amount        | BigDecimal | 是       | 委托数量                                                     |
 | price         | BigDecimal | 否       | 委托价格，当为对手价或最优5档价格（即为action11，12，31，32，51或52）可以为空，其他均必填 |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
+| extend        | Map        | 否       | 扩展参数，目前支持开仓设置委托策略（止盈止损），例如："extend":{"orderAlgos":[{"bizType":1,"priceType":1,"triggerPrice":"70000"},{"bizType":2,"priceType":1,"triggerPrice":"40000"}]} |
+
+#### 止盈止损参数说明				
+
+| 参数名       | 必选 | 类型    | 说明                               |
+| :----------- | :--- | :------ | :--------------------------------- |
+| bizType      | 是   | Integer | 类型，1：止盈，2：止损             |
+| priceType    | 是   | Integer | 价格类型，1：标记价格，2：最新价格 |
+| triggerPrice | 是   | Decimal | 触发价格                           |
 
   - 响应结果:
 
@@ -1521,7 +1530,27 @@ orderIds 与 clientOrderIds 选填1个
                 "tradeValue": "0",
                 "type": 1,
                 "userId": 1,
-                "value": "600"
+                "value": "600",
+              	"orderAlgos": [
+                  {
+                      "bizType": 1, 
+                      "createTime": "1638779420239", 
+                      "id": "6873539077426126853", 
+                      "priceType": 1, 
+                      "priority": 0, 
+                      "status": 0, 
+                      "triggerPrice": "55200"
+                  }, 
+                  {
+                      "bizType": 2, 
+                      "createTime": "1638779420239", 
+                      "id": "6873539077426126858", 
+                      "priceType": 1, 
+                      "priority": 0, 
+                      "status": 0, 
+                      "triggerPrice": "42200"
+                  }
+              ]
             }
         ],
         "pageNum": 1,
@@ -1533,29 +1562,34 @@ orderIds 与 clientOrderIds 选填1个
 
 响应参数说明 data
 
-| 参数名          | 必选 | 类型       | 说明                                                         |
-| :-------------- | :--- | :--------- | :----------------------------------------------------------- |
-| id              | 是   | String     | 订单id                                                       |
-| orderCode       | 是   | String     | 自定义订单ID                                                 |
-| marketId        | 是   | Long       | 市场id                                                       |
-| price           | 是   | Decimal    | 委托价格                                                     |
-| amount          | 是   | Decimal    | 委托数量                                                     |
-| value           | 否   | Decimal    | 委托价值，即委托价格 * 委托数量                              |
-| availableAmount | 否   | Decimal    | 可用委托数量                                                 |
-| availableValue  | 是   | Decimal    | 可用委托价值                                                 |
-| tradeAmount     | 是   | Decimal    | 成交完成量, 每次成交都会增加                                 |
-| tradeValue      | 是   | Decimal    | 成交完成价值, 每次成交都会增加                               |
-| type            | 是   | Integer    | 委托类型: -1 卖, 1 买                                        |
-| action          | 是   | Integer    | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
-| showStatus      | 是   | Integer    | 状态: 1:未成交、2:部分成交（订单还在挂单中）、3:已完成、4：取消中、5:完全取消、6：取消失败、7：部分取消（订单已完成，部分成交） |
-| entrustType     | 是   | Integer    | 委托类型：1限价委托，2强制减仓，3强制平仓，4计划委托，5止盈，6止损，7自动减仓 |
-| side            | 是   | Integer    | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
-| sourceType      | 是   | Integer    | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈止损)<br/>9:Take Profit(止损) |
-| leverage        | 是   | Integer    | 杠杠倍数                                                     |
-| avgPrice        | 是   | BigDecimal | 成交均价                                                     |
-| canCancel       | 是   | Boolean    | 能否取消                                                     |
-| createTime      | 是   | Long       | 下单时间，时间戳                                             |
-| margin          | 是   | Decimal    | 保证金                                                       |
+| 参数名           | 必选 | 类型       | 说明                                                         |
+| :--------------- | :--- | :--------- | :----------------------------------------------------------- |
+| id               | 是   | String     | 订单id                                                       |
+| orderCode        | 是   | String     | 自定义订单ID                                                 |
+| marketId         | 是   | Long       | 市场id                                                       |
+| price            | 是   | Decimal    | 委托价格                                                     |
+| amount           | 是   | Decimal    | 委托数量                                                     |
+| value            | 否   | Decimal    | 委托价值，即委托价格 * 委托数量                              |
+| availableAmount  | 否   | Decimal    | 可用委托数量                                                 |
+| availableValue   | 是   | Decimal    | 可用委托价值                                                 |
+| tradeAmount      | 是   | Decimal    | 成交完成量, 每次成交都会增加                                 |
+| tradeValue       | 是   | Decimal    | 成交完成价值, 每次成交都会增加                               |
+| type             | 是   | Integer    | 委托类型: -1 卖, 1 买                                        |
+| action           | 是   | Integer    | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
+| showStatus       | 是   | Integer    | 状态: 1:未成交、2:部分成交（订单还在挂单中）、3:已完成、4：取消中、5:完全取消、6：取消失败、7：部分取消（订单已完成，部分成交） |
+| entrustType      | 是   | Integer    | 委托类型：1限价委托，2强制减仓，3强制平仓，4计划委托，5止盈，6止损，7自动减仓 |
+| side             | 是   | Integer    | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
+| sourceType       | 是   | Integer    | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈止损)<br/>9:Take Profit(止损) |
+| leverage         | 是   | Integer    | 杠杠倍数                                                     |
+| avgPrice         | 是   | BigDecimal | 成交均价                                                     |
+| canCancel        | 是   | Boolean    | 能否取消                                                     |
+| createTime       | 是   | Long       | 下单时间，时间戳                                             |
+| margin           | 是   | Decimal    | 保证金                                                       |
+| **orderAlgos[]** |      |            |                                                              |
+| bizType          | 是   | Integer    | 类型，1：止盈，2：止损                                       |
+| priceType        | 是   | Integer    | 价格类型，1：标记价格，2：最新价格                           |
+| triggerPrice     | 是   | Decimal    | 触发价格                                                     |
+| status           | 是   | Integer    | 状态，0：未生效，1：已生效                                   |
 
 
 
@@ -1849,7 +1883,7 @@ orderId 与 clientOrderId 选填1个
 | :----- | :--- | :----- | :--------- |
 | algoId | 是   | String | 委托策略id |
 
-### 
+
 
 ### 5.12委托策略撤单		
 
@@ -2005,6 +2039,90 @@ orderId 与 clientOrderId 选填1个
 
 
 
+### 5.14 修改下单止盈止损参数
+
+  - URL: /Server/api/v2/trade/updateOrderAlgo
+
+  - 接口类型: Http
+
+  - 请求类型: POST
+
+  - 请求参数:
+
+    | 参数名     | 必选 | 类型   | 说明                                                         |
+    | :--------- | :--- | :----- | :----------------------------------------------------------- |
+    | symbol     | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
+    | orderId    | 是   | Long   | 订单号                                                       |
+    | orderAlgos | 是   | List   | 止盈止损参数，如："orderAlgos":[{"bizType":1,"priceType":1,"triggerPrice":"70000"},{"bizType":2,"priceType":1,"triggerPrice":"40000"}] |
+
+    ### 止盈止损参数说明				
+
+    | 参数名       | 必选 | 类型    | 说明                               |
+    | :----------- | :--- | :------ | :--------------------------------- |
+    | bizType      | 是   | Integer | 类型，1：止盈，2：止损             |
+    | priceType    | 是   | Integer | 价格类型，1：标记价格，2：最新价格 |
+    | triggerPrice | 是   | Decimal | 触发价格                           |
+
+  - 响应结果:
+
+    ```json
+    {
+        "code": 10000, 
+        "data": {
+            "action": 1, 
+            "amount": "0.01", 
+            "availableAmount": "0.01", 
+            "availableValue": "450", 
+            "avgPrice": "0", 
+            "canCancel": true, 
+            "cancelStatus": 20, 
+            "createTime": "1638776887733", 
+            "entrustType": 1, 
+            "id": "6873528455326081024", 
+            "leverage": 20, 
+            "margin": "22.5", 
+            "marketId": "100", 
+            "modifyTime": "1638776887748", 
+            "orderAlgos": [
+                {
+                    "bizType": 1, 
+                    "createTime": "1638779420239", 
+                    "id": "6873539077426126853", 
+                    "priceType": 1, 
+                    "priority": 0, 
+                    "status": 0, 
+                    "triggerPrice": "55200"
+                }, 
+                {
+                    "bizType": 2, 
+                    "createTime": "1638779420239", 
+                    "id": "6873539077426126858", 
+                    "priceType": 1, 
+                    "priority": 0, 
+                    "status": 0, 
+                    "triggerPrice": "42200"
+                }
+            ], 
+            "price": "45000", 
+            "priority": 0, 
+            "showStatus": 1, 
+            "side": 1, 
+            "sourceType": 4, 
+            "status": 12, 
+            "tradeAmount": "0", 
+            "tradeValue": "0", 
+            "type": 1, 
+            "userId": "6838762652169152512", 
+            "value": "450"
+        }, 
+        "desc": "操作成功"
+    }
+    ```
+
+ 响应参数说明 data，参考 ``查询当前全部挂单``
+
+
+
 ## 6. 交易活动
 
 跟交易活动相关的接口请在header中添加如下参数
@@ -2045,7 +2163,7 @@ subAccount: {periodId: 期id(activityPeriodId)}
 
 ## 7. 公共行情：Http
 
-地址：https://futures.zb.team
+地址：https://fapi.zb.com
 
 ### 7.1 交易对
   - URL: /Server/api/v2/config/marketList
@@ -2840,7 +2958,7 @@ size最大值为1440，默认值为1
 
 - 接口类型: WebSocket
 
-- URL: wss://futures.zb.team/ws/public/v1
+- URL: wss://fapi.zb.com/ws/public/v1
 - 请求参数使用json编码
 
 ### 8.1 订阅
@@ -3311,7 +3429,7 @@ size最大值为100，默认值为1
 
 - 接口类型: WebSocket
 
-- URL: wss://futures.zb.team/ws/private/api/v2
+- URL: wss://fapi.zb.com/ws/private/api/v2
 
 - **每个请求都必须有的参数：**
 
