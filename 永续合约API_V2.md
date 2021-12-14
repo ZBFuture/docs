@@ -1657,7 +1657,7 @@ orderIds 与 clientOrderIds 选填1个
 }
   ```
 
-响应参数说明，参考``查询当前全部挂单``
+响应参数说明，参考``5.6查询当前全部挂单``
 
 ### 5.8 订单信息
 
@@ -4486,31 +4486,7 @@ size最大值为100，默认值为1
 
 - 响应参数说明
 
-| 参数名          | 必选 | 类型       | 说明                                                         |
-| :-------------- | :--- | :--------- | :----------------------------------------------------------- |
-| id              | 是   | Long       | 订单id                                                       |
-| orderCode       | 是   | String     | 自定义订单ID                                                 |
-| marketId        | 是   | Long       | 市场id                                                       |
-| price           | 是   | Decimal    | 委托价格                                                     |
-| amount          | 是   | Decimal    | 委托数量                                                     |
-| value           | 否   | Decimal    | 委托价值，即委托价格 * 委托数量                              |
-| availableAmount | 否   | Decimal    | 可用委托数量                                                 |
-| availableValue  | 是   | Decimal    | 可用委托价值                                                 |
-| tradeAmount     | 是   | Decimal    | 成交完成量, 每次成交都会增加                                 |
-| tradeValue      | 是   | Decimal    | 成交完成价值, 每次成交都会增加                               |
-| type            | 是   | Integer    | 委托类型: -1 卖, 1 买                                        |
-| action          | 是   | Integer    | 委托动作: 1 限价, 2 市价, 3 IOC, 4 只做 maker, 5 FOK         |
-| showStatus      | 是   | Integer    | 状态: 1:未成交、2:部分成交、3:已完成、4：取消中、5:已取消、6：取消失败 |
-| entrustType     | 是   | Integer    | 委托类型：1限价委托，2强平委托，3限价止盈，4限价止损         |
-| side            | 是   | Integer    | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
-| sourceType      | 是   | Integer    | 来源：1:WEB、2:Android、3:iOS、4：Rest API、5:WebSocket API、6:System |
-| leverage        | 是   | Integer    | 杠杠倍数                                                     |
-| avgPrice        | 是   | BigDecimal | 成交均价                                                     |
-| canCancel       | 是   | Boolean    | 能否取消                                                     |
-| createTime      | 是   | Long       | 下单时间，时间戳                                             |
-| margin          | 是   | Decimal    | 保证金                                                       |
-
-## 
+​		参考``5.6查询当前全部挂单`` 返回结果说明
 
 
 
