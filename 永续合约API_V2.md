@@ -1575,9 +1575,9 @@ orderIds 与 clientOrderIds 选填1个
 | tradeAmount      | 是   | Decimal    | 成交完成量, 每次成交都会增加                                 |
 | tradeValue       | 是   | Decimal    | 成交完成价值, 每次成交都会增加                               |
 | type             | 是   | Integer    | 委托类型: -1 卖, 1 买                                        |
-| action           | 是   | Integer    | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
+| action           | 是   | Integer    | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>13 最优10档<br/>14 最优20档<br/>19 最优极限档，即在限价上限或下限的最优价格<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>33 最优10档IOC<br/>34 最优20档IOC<br/>39 最优极限档IOC，即在限价上限或下限的最优价格IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/>53 最优10档FOK<br/>54 最优20档FOK<br/>59 最优极限档FOK，即在限价上限或下限的最优价格FOK |
 | showStatus       | 是   | Integer    | 状态: 1:未成交、2:部分成交（订单还在挂单中）、3:已完成、4：取消中、5:完全取消、6：取消失败、7：部分取消（订单已完成，部分成交） |
-| entrustType      | 是   | Integer    | 委托类型：1限价委托，2强制减仓，3强制平仓，4计划委托，5止盈，6止损，7自动减仓 |
+| entrustType      | 是   | Integer    | 委托类型： <br/>1限价委托 <br/>2强制减仓 <br/>3强制平仓 <br/>4计划委托 <br/>5止盈 <br/>6止损 <br/>7强平（未穿仓） <br/>8强平（风险基金）<br/>9强平（自动减仓） |
 | side             | 是   | Integer    | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
 | sourceType       | 是   | Integer    | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈止损)<br/>9:Take Profit(止损) |
 | leverage         | 是   | Integer    | 杠杠倍数                                                     |
