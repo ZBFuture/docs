@@ -3072,8 +3072,8 @@ size最大值为1440，默认值为1
   ```json
   {
     "action": "subscribe",
-       "channel":"BTC_USDT.KLine_15M",
-    "data":					//不同的channel，data会不一样
+    "channel":"BTC_USDT.KLine_15M",
+    "size":100					//不同的channel，data会不一样
   }
   
   ```
@@ -3103,8 +3103,8 @@ size最大值为1440，默认值为1
 
   ```json
   {
-    "action": "subscribe",
-       "channel":"BTC_USDT.KLine_15M"
+    "action": "unsubscribe",
+    "channel":"BTC_USDT.KLine_15M"
   }
   
   ```
