@@ -1475,7 +1475,7 @@ orderId 与 clientOrderId 选填1个
 
 - 响应结果:
 
-  ```json
+```json
 {
 "code": 10000,
 "desc": "success",
