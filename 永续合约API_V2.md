@@ -1103,7 +1103,7 @@ https://fapi.zb.com
         - marketId: 市场id
 
       |参数名|必选|类型|说明|
-                       |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
       |marketId |是  |Long | 市场id    |
       |symbol |是  |String | 市场名称    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1231,7 +1231,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
       |positionsId |是  |Long | 仓位ID    |
       |maxAdditionalUSDValue |是  |BigDecimal | 设置增加的保证金数量，如果为0会关闭自动增加保证金    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1266,7 +1266,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
       |symbol |是  |String | 市场名称    |
       |marginCoins |是  |String | 设置保证金顺序    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
