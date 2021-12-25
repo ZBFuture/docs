@@ -1363,15 +1363,7 @@ https://fapi.zb.com
 | amount        | BigDecimal | 是       | 委托数量                                                     |
 | price         | BigDecimal | 否       | 委托价格，当为对手价或最优5档价格（即为action11，12，31，32，51或52）可以为空，其他均必填 |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
-| extend        | Map        | 否       | 扩展参数，目前支持开仓设置委托策略（止盈止损），例如："extend":{"orderAlgos":[{"bizType":1,"priceType":1,"triggerPrice":"70000"},{"bizType":2,"priceType":1,"triggerPrice":"40000"}]} |
 
-#### 止盈止损参数说明
-
-| 参数名       | 必选 | 类型    | 说明                               |
-| :----------- | :--- | :------ | :--------------------------------- |
-| bizType      | 是   | Integer | 类型，1：止盈，2：止损             |
-| priceType    | 是   | Integer | 价格类型，1：标记价格，2：最新价格 |
-| triggerPrice | 是   | Decimal | 触发价格                           |
 
 - 响应结果:
 
@@ -1569,7 +1561,7 @@ orderIds 与 clientOrderIds 选填1个
 
 - 响应结果:
 
-  ```json
+```
 {
 "code": 10000,
 "data": [ ],
@@ -1597,7 +1589,7 @@ orderIds 与 clientOrderIds 选填1个
 
 - 响应结果:
 
-  ```json
+```
 {
     "code": 10000,
     "data": {
