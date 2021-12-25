@@ -564,7 +564,7 @@ https://fapi.zb.com
 -  assets 数据说明
 -
 |参数名|必选|类型|说明|
-     |:----    |:---|:----- |:-----   |
+|:----    |:---|:----- |:-----   |
 |userId |是  |Long |用户id   |
 |currencyId |是  |Long | 币种id    |
 |currencyName |是  |String | 币种名    |
@@ -581,7 +581,7 @@ https://fapi.zb.com
 -  account 数据说明
 -
 |参数名|必选|类型|说明|
-     |:----    |:---|:----- |:-----   |
+|:----    |:---|:----- |:-----   |
 |accountBalance |是  |BigDecimal |账户余额：可用+冻结+所以仓位未实现盈亏   |
 |allMargin |是  |BigDecimal | 所有仓位保证金    |
 |available     |是  |BigDecimal | 可用资产量    |
@@ -602,7 +602,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-           |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |marketId |否  |Long | 市场id和市场名称必选其一    |
   |symbol |否  |String | 市场id和市场名称必选其一    |
   |side |否  |Integer | 1 多仓  0 空仓    |
@@ -667,7 +667,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |marketId |是  |Long | 市场id    |
   |marketName     |是  |String | 市场名称    |
@@ -706,7 +706,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-           |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |positionsId |是  |Long | 仓位Id    |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 
@@ -745,7 +745,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |positionsId |是  |Long | 仓位id    |
   |amount |是  |BigDecimal | 变更数量    |
   |type |是  |Integer | 1: 增加  0：减少    |
@@ -790,59 +790,59 @@ https://fapi.zb.com
 - URL: /Server/api/v2/setting/setLeverage
     - 接口类型: Http
     - 请求类型: POST
-    - 请求参数:
-        ```
-      {
-          "symbol":"BTC_USDT",
-          "leverage":12,
-          "futuresAccountType":1
-      }
+- 请求参数:
+    ```
+  {
+      "symbol":"BTC_USDT",
+      "leverage":12,
+      "futuresAccountType":1
+  }
       
-      ```
+  ```
 
-      |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
-      |marketId |否  |Long | 市场id和市场名称必选其一    |
-      |symbol |否  |String | 市场id和市场名称必选其一    |
-      |leverage |是  |Integer | 杠杆倍数    |
-      |futuresAccountType |是  |Integer | 1:USDT永续合约    |
+  |参数名|必选|类型|说明|
+  |:----    |:---|:----- |:-----   |
+  |marketId |否  |Long | 市场id和市场名称必选其一    |
+  |symbol |否  |String | 市场id和市场名称必选其一    |
+  |leverage |是  |Integer | 杠杆倍数    |
+  |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 
-    - 响应结果:
-      ```json
-       {
-           "code": 10000,
-           "desc": "success",
-           "data": {
-               "userId": 111,
-               "marketId": 100,
-               "leverage": 20,
-               "marginMode": 1,
-               "positionsMode": 2,
-               "enableAutoAppend": 1,
-               "maxAppendAmount": "11212",
-               "marginCoins": "eth,qc",
-               "id": 6737268451833817088,
-               "createTime": 1606289971312,
-               "modifyTime": 0,
-               "extend": null
-      }
-       }
-      ```
+  - 响应结果:
+    ```json
+     {
+         "code": 10000,
+         "desc": "success",
+         "data": {
+             "userId": 111,
+             "marketId": 100,
+             "leverage": 20,
+             "marginMode": 1,
+             "positionsMode": 2,
+             "enableAutoAppend": 1,
+             "maxAppendAmount": "11212",
+             "marginCoins": "eth,qc",
+             "id": 6737268451833817088,
+             "createTime": 1606289971312,
+             "modifyTime": 0,
+             "extend": null
+    }
+     }
+    ```
 
-      |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
-      |userId |是  |Long |用户id   |
-      |marketId |是  |Long | 市场id    |
-      |leverage     |是  |BigDecimal | 杠杠倍数    |
-      |marginMode     |是  |Integer | 保证金模式：1逐仓（默认），2全仓    |
-      |positionsMode     |否  |Integer | 1:单向持仓，2: 双向持仓    |
-      |id     |否  |Long | 仓位id    |
-      |maxAppendAmount |是  |BigDecimal |最多追加保证金，可能被修改，如果为0会关闭自动增加保证金   |
-      |enableAutoAppend |是  |Integer | 是否开启自动追加保证金 1:开启  0 ：不开启    |
-      |marginCoins |是  |String | 配置的按顺序冻结的保证金，如 eth,usdt,qc    |
-      |createTime     |否  |Long | 创建时间    |
-      |modifyTime     |是  |Long | 更新时间    |
-      |extend     |是  |String | 备用字段    |
+    |参数名|必选|类型|说明|
+    |:----    |:---|:----- |:-----   |
+    |userId |是  |Long |用户id   |
+    |marketId |是  |Long | 市场id    |
+    |leverage     |是  |BigDecimal | 杠杠倍数    |
+    |marginMode     |是  |Integer | 保证金模式：1逐仓（默认），2全仓    |
+    |positionsMode     |否  |Integer | 1:单向持仓，2: 双向持仓    |
+    |id     |否  |Long | 仓位id    |
+    |maxAppendAmount |是  |BigDecimal |最多追加保证金，可能被修改，如果为0会关闭自动增加保证金   |
+    |enableAutoAppend |是  |Integer | 是否开启自动追加保证金 1:开启  0 ：不开启    |
+    |marginCoins |是  |String | 配置的按顺序冻结的保证金，如 eth,usdt,qc    |
+    |createTime     |否  |Long | 创建时间    |
+    |modifyTime     |是  |Long | 更新时间    |
+    |extend     |是  |String | 备用字段    |
 
 ### 4.6 仓位持仓模式设置
 - 暂未开通，目前默认只支持双向持仓
@@ -857,7 +857,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-           |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |marketId |否  |Long | 市场id和市场名称必选其一    |
   |symbol |否  |String | 市场id和市场名称必选其一    |
   |side |否  |Integer | 方向：1：开多   0 开空    |
@@ -877,7 +877,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |marketId |是  |Long | 市场id    |
   |side |是  |Long | 1:多仓 0：空仓    |
   |nominalValue |否  |BigDecimal |用户仓位头寸名义价值 （传side时返回）  |
@@ -894,7 +894,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-           |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |currencyId |否  |Long | 币种id    |
   |currencyName |否  |String | 币种名字    |
   |type |否  |Integer |账单类型   |
@@ -964,7 +964,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |freezeId |是  |String | 冻结id    |
   |type     |是  |BigDecimal | 账单类型    |
@@ -1018,7 +1018,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |code |是  |Integer |账单类型   |
   |cnDesc |是  |String | 账单类型中文描述    |
   |enDesc     |是  |String | 账单类型英文描述    |
@@ -1029,66 +1029,66 @@ https://fapi.zb.com
 - URL: /Server/api/v2/Fund/marginHistory
     - 接口类型: Http
     - 请求类型: GET
-    - 请求参数:
-        ```
+- 请求参数:
+    ```
         
-        ```
+    ```
 
-      |参数名|必选|类型|说明|
-                        |:----    |:---|:----- |:-----   |
-      |symbol |否  |String | 市场,如 ETH_USDT    |
-      |startTime |否  |Long | 毫秒时间戳    |
-      |endTime |否  |Long | 毫秒时间戳    |
-      |type |否  |Integer | 调整方向 1: 增加逐仓保证金，0: 减少逐仓保证金    |
-      |pageNum |否  |Integer | 页码，默认1    |
-      |pageSize |否  |Integer | 页大小 默认10    |
+  |参数名|必选|类型|说明|
+  |:----    |:---|:----- |:-----   |
+  |symbol |否  |String | 市场,如 ETH_USDT    |
+  |startTime |否  |Long | 毫秒时间戳    |
+  |endTime |否  |Long | 毫秒时间戳    |
+  |type |否  |Integer | 调整方向 1: 增加逐仓保证金，0: 减少逐仓保证金    |
+  |pageNum |否  |Integer | 页码，默认1    |
+  |pageSize |否  |Integer | 页大小 默认10    |
 
-    - 响应结果: 返回仓位对象信息
-      ```json
+  - 响应结果: 返回仓位对象信息
+    ```json
       
-       {
-         "code": 10000,
-         "data": {
-           "list": [
-              {
-                "symbol": "ETH_USDT",
-                "asset": "usdt",
-                "amount": "USDT:9982.66756951, BTC:0.999540947",
-                "type": 1,
-                "isAuto": 0,
-                "contractType": 1,
-                "positionSide": "BOTH",
-                "createTime": "1619062409274"
-              },
-              {
-                "symbol": "ETH_USDT",
-                "asset": "usdt",
-                "amount": "1.000000000000000",
-                "type": 1,
-                "isAuto": 0,
-                "contractType": 1,
-                "positionSide": "BOTH",
-                "createTime": "1619058949337"
-              }
-            ],
-              "pageNum": 1,
-              "pageSize": 10
-         },
-         "desc": "操作成功"
-       }
+     {
+       "code": 10000,
+       "data": {
+         "list": [
+            {
+              "symbol": "ETH_USDT",
+              "asset": "usdt",
+              "amount": "USDT:9982.66756951, BTC:0.999540947",
+              "type": 1,
+              "isAuto": 0,
+              "contractType": 1,
+              "positionSide": "BOTH",
+              "createTime": "1619062409274"
+            },
+            {
+              "symbol": "ETH_USDT",
+              "asset": "usdt",
+              "amount": "1.000000000000000",
+              "type": 1,
+              "isAuto": 0,
+              "contractType": 1,
+              "positionSide": "BOTH",
+              "createTime": "1619058949337"
+            }
+          ],
+            "pageNum": 1,
+            "pageSize": 10
+       },
+       "desc": "操作成功"
+     }
       
-      ```
+    ```
 
-      |参数名|必选|类型|说明|
-                        |:----    |:---|:----- |:-----   |
-      |symbol |是  |String |市场，如ETH_USDT   |
-      |asset |是  |String | 保证金币种，可能1个或者多个，如 USDT,ETH    |
-      |amount     |是  |String | 保证金数量，可能多个，如 USDT:121210.00001, ETH:0.0002    |
-      |type     |是  | | 调整方向 1: 增加逐仓保证金，0: 减少逐仓保证金   |
-      |isAuto     |否  |Integer | 是否自动，默认否 0，1为是    |
-      |contractType     |否  |Long | 合约类型    |
-      |positionSide |是  |String |持仓方向:LONG SHORT BOTH   如果单向持仓就是LONG/SHORT   双向持仓：BOTH   |
-      |createTime |是  |Integer | 创建时间    |
+    |参数名|必选|类型|说明|
+    |:----    |:---|:----- |:-----   |
+    |symbol |是  |String |市场，如ETH_USDT   |
+    |asset |是  |String | 保证金币种，可能1个或者多个，如 USDT,ETH    |
+    |amount     |是  |String | 保证金数量，可能多个，如 USDT:121210.00001, ETH:0.0002    |
+    |type     |是  | | 调整方向 1: 增加逐仓保证金，0: 减少逐仓保证金   |
+    |isAuto     |否  |Integer | 是否自动，默认否 0，1为是    |
+    |contractType     |否  |Long | 合约类型    |
+    |positionSide |是  |String |持仓方向:LONG SHORT BOTH   如果单向持仓就是LONG/SHORT   双向持仓：BOTH   |
+    |createTime |是  |Integer | 创建时间    |
 
 
 
@@ -1108,42 +1108,42 @@ https://fapi.zb.com
       |symbol |是  |String | 市场名称    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 
-    - 响应结果:
-      ```json
-       {
-           "code": 10000,
-           "desc": "success",
-           "data": {
-               "userId": 111,
-               "marketId": 100,
-               "leverage": 20,
-               "marginMode": 1,
-               "positionsMode": 2,
-               "enableAutoAppend": 1,
-               "maxAppendAmount": "11212",
-                "marginCoins": "eth,qc",
-               "id": 6737268451833817088,
-               "createTime": 1606289971312,
-               "modifyTime": 0,
-               "extend": null
-           }
+- 响应结果:
+  ```json
+   {
+       "code": 10000,
+       "desc": "success",
+       "data": {
+           "userId": 111,
+           "marketId": 100,
+           "leverage": 20,
+           "marginMode": 1,
+           "positionsMode": 2,
+           "enableAutoAppend": 1,
+           "maxAppendAmount": "11212",
+            "marginCoins": "eth,qc",
+           "id": 6737268451833817088,
+           "createTime": 1606289971312,
+           "modifyTime": 0,
+           "extend": null
        }
-      ```
+   }
+  ```
 
-      |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
-      |userId |是  |Long |用户id   |
-      |marketId |是  |Long | 市场id    |
-      |leverage     |是  |BigDecimal | 杠杠倍数    |
-      |marginMode     |是  |Integer | 保证金模式：1逐仓（默认），2全仓    |
-      |positionsMode     |否  |Integer | 1:单向持仓，2: 双向持仓    |
-      |id     |否  |Long | 仓位id    |
-      |maxAppendAmount |是  |BigDecimal |最多追加保证金，可能被修改，如果为0会关闭自动增加保证金   |
-      |enableAutoAppend |是  |Integer | 是否开启自动追加保证金 1:开启  0 ：不开启    |
-      |marginCoins |是  |String | 配置的按顺序冻结的保证金，如 eth,usdt,qc    |
-      |createTime     |否  |Long | 创建时间    |
-      |modifyTime     |是  |Long | 更新时间    |
-      |extend     |是  |String | 备用字段    |
+  |参数名|必选|类型|说明|
+  |:----    |:---|:----- |:-----   |
+  |userId |是  |Long |用户id   |
+  |marketId |是  |Long | 市场id    |
+  |leverage     |是  |BigDecimal | 杠杠倍数    |
+  |marginMode     |是  |Integer | 保证金模式：1逐仓（默认），2全仓    |
+  |positionsMode     |否  |Integer | 1:单向持仓，2: 双向持仓    |
+  |id     |否  |Long | 仓位id    |
+  |maxAppendAmount |是  |BigDecimal |最多追加保证金，可能被修改，如果为0会关闭自动增加保证金   |
+  |enableAutoAppend |是  |Integer | 是否开启自动追加保证金 1:开启  0 ：不开启    |
+  |marginCoins |是  |String | 配置的按顺序冻结的保证金，如 eth,usdt,qc    |
+  |createTime     |否  |Long | 创建时间    |
+  |modifyTime     |是  |Long | 更新时间    |
+  |extend     |是  |String | 备用字段    |
 
 
 
@@ -1157,7 +1157,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-           |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |currencyId |否  |String | 币种id    |
   |currencyName |否  |String | 币种名称    |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1199,7 +1199,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
+  |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |currencyId |是  |Long | 币种id    |
   |currencyName |是  |String | 币种名字    |
@@ -1246,7 +1246,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
       |data |是  |String |本次操作的clientId，由秒时间戳+仓位ID 组成   |
 
 ### 4.15 设置保证金使用顺序
@@ -1294,7 +1294,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
       |userId |是  |Long |用户id   |
       |marketId |是  |Long | 市场id    |
       |leverage     |是  |BigDecimal | 杠杠倍数    |
@@ -1325,7 +1325,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
       |currencyName |是  |String | 币种名称    |
       |amount |是  |BigDecimal | 划转数量,进度参考币种信息    |
       |clientId |是  |String | 唯一id，保持幂等性，不能为空或长度不能超过18    |
