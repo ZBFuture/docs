@@ -5000,7 +5000,7 @@ size最大值为100，默认值为1
 {
   "action": "subscribe",
   "channel":"Trade.getTradeList",
-
+  "orderId":"6785805407710355456",
   "symbol":"BTC_USDT"，
 }
 ```
