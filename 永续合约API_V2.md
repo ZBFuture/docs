@@ -462,6 +462,15 @@ if __name__ == '__main__':
 
 ```
 
+
+
+### 1.4. 访问限频规则
+
+- Rest API 单个接口请求次数限制默认为100次/2s
+- Websocket API 单个接口请求次数限制默认为200次/2s
+
+
+
 ## 2.响应规则
 
 **响应参数**
@@ -1093,7 +1102,7 @@ https://fapi.zb.com
 
 
 
-​
+
 
 ### 4.12 仓位配置信息查询
 - URL: /Server/api/v2/setting/get
@@ -1377,7 +1386,7 @@ https://fapi.zb.com
   		"orderCode":"01aa0ff5b1974d9ab09167b77e6dd116"
   }
 }
-  ```
+```
 
 响应参数说明 data：
 
@@ -1420,7 +1429,7 @@ https://fapi.zb.com
     }
   ]
 }
-  ```
+```
 
 | 名称       | 类型 | 是否必须 | 描述           |
 | :--------- | :--- | :------- | :------------- |
@@ -1447,7 +1456,7 @@ https://fapi.zb.com
     ], 
     "desc": "操作成功"
 }
-  ```
+```
 
 响应参数说明 data：
 
@@ -1482,7 +1491,7 @@ orderId 与 clientOrderId 选填1个
 "cnDesc": "操作成功",
 "data": "6747737516411133952"
 }
-  ```
+```
 
 响应参数说明 data：
 
@@ -1567,7 +1576,7 @@ orderIds 与 clientOrderIds 选填1个
 "data": [ ],
 "desc": "success"
 }
-  ```
+```
 
 若data中有数据则表示有删除失败的订单，具体数据格式参考``批量撤单接口``
 
@@ -1646,7 +1655,7 @@ orderIds 与 clientOrderIds 选填1个
     },
     "desc": "success"
 }
-  ```
+```
 
 响应参数说明 data
 
@@ -1667,7 +1676,7 @@ orderIds 与 clientOrderIds 选填1个
 | showStatus       | 是   | Integer    | 状态: 1:未成交、2:部分成交（订单还在挂单中）、3:已完成、4：取消中、5:完全取消、6：取消失败、7：部分取消（订单已完成，部分成交） |
 | entrustType      | 是   | Integer    | 委托类型： <br/>1限价委托 <br/>2强制减仓 <br/>3强制平仓 <br/>4计划委托 <br/>5止盈 <br/>6止损 <br/>7强平（未穿仓） <br/>8强平（风险基金）<br/>9强平（自动减仓） |
 | side             | 是   | Integer    | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
-| sourceType       | 是   | Integer    | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈止损)<br/>9:Take Profit(止损) |
+| sourceType       | 是   | Integer    | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈)<br/>9:Stop Loss(止损) |
 | leverage         | 是   | Integer    | 杠杠倍数                                                     |
 | avgPrice         | 是   | BigDecimal | 成交均价                                                     |
 | canCancel        | 是   | Boolean    | 能否取消                                                     |
@@ -1796,7 +1805,7 @@ orderId 与 clientOrderId 选填1个
     },
     "desc": "success"
 }
-  ```
+```
 
 响应参数说明，参考``查询当前全部挂单``
 
@@ -2100,7 +2109,7 @@ orderId 与 clientOrderId 选填1个
 | algoPrice    | 是   | Decimal | 委托价格，填写值0\<X\<=1000000                               |
 | bizType      | 是   | Integer | `1`:止盈<br/>`2`:止损                                        |
 | leverage     | 是   | Integer | 杠杠倍数                                                     |
-| sourceType   | 是   | Integer | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈止损)<br/>9:Take Profit(止损) |
+| sourceType   | 是   | Integer | 来源：<br/>1:WEB<br/>2:Android<br/>3:iOS<br/>4:Rest API<br/>5:WebSocket API<br/>6:System<br/>7:Plan Entrust(计划委托)<br/>8:Take Profit(止盈)<br/>9:Stop Loss(止损) |
 | canCancel    | 是   | Boolean | 能否取消                                                     |
 | triggerTime  | 否   | Long    | 触发时间，时间戳                                             |
 | tradedAmount | 否   | Decimal | 已成交数量                                                   |
@@ -2287,7 +2296,7 @@ subAccount: {periodId: 期id(activityPeriodId)}
       ...
      ]
   }
-  ```
+```
 
 | 名称         | 类型     | 示例 | 描述      |
   | :---------- | :----- | :--- | :------ |
@@ -2421,7 +2430,7 @@ size最大值为1440，默认值为1
         ]
     ]
   } 
-  ```
+```
 
 ### 
 
@@ -2463,7 +2472,7 @@ size最大值为1440，默认值为1
           ]      
       ]
   }
-  ```
+```
 
 ### 7.5 Ticker
 
@@ -5264,6 +5273,7 @@ size最大值为100，默认值为1
 | 11032  | 有相同请求处理中，请勿重复提交。                 |
 | 11033  | 仓位配置数据为空                                 |
 | 11034  | 资金费正在结算，请勿操作                         |
+| 11035  | 只减仓下单和同向挂单不兼容                       |
 | 12000  | 下单价格无效                                     |
 | 12001  | 下单数量无效                                     |
 | 12002  | 订单类型无效                                     |
@@ -5294,7 +5304,8 @@ size最大值为100，默认值为1
 | 12027  | 委托繁忙，请稍后再试                             |
 | 12028  | 该市场已禁止交易                                 |
 | 12029  | 禁止下开仓单，敬请期待！                         |
-| 12005  | 下单名义价值小于最小值或大于最大值               |
+| 12030  | 下单名义价值小于最小值或大于最大值               |
+| 12031  | 订单已完成禁止修改                               |
 | 12201  | 委托策略不存在或状态已变更                       |
 | 12202  | 托策略状态已变更，不能取消                       |
 | 12203  | orderType类型错误                                |
@@ -5302,6 +5313,7 @@ size最大值为100，默认值为1
 | 12205  | 触发价必须大于当前行情的卖1档价格或小于买1档价格 |
 | 12206  | side和orderType不匹配                            |
 | 12207  | 提交失败，超过允许添加的上限                     |
+| 12208  | 触发价格精度无效                                 |
 | 13001  | 用户不存在                                       |
 | 13002  | 用户未开启合约                                   |
 | 13003  | 用户被锁定                                       |
@@ -5319,7 +5331,7 @@ size最大值为100，默认值为1
 | 14100  | 精度不支持                                       |
 | 14101  | 请求超出限频次数                                 |
 | 14200  | id为空                                           |
-| 14300  | 活动不存在                                       |
+| 14300  | 活动期数不存在                                   |
 | 14301  | 活动已开启，不能入场                             |
 | 14302  | 已超过购买时间，不能入场                         |
 | 14303  | 还未开放购买                                     |
