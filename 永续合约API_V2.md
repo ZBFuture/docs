@@ -2251,7 +2251,8 @@ subAccount: {periodId: 期id(activityPeriodId)}
 
 ## 7. 公共行情：Http
 
-地址：https://fapi.zb.com
+USDT合约地址：https://fapi.zb.com
+QC合约地址：https://fapi.zb.com/qc
 
 ### 7.1 交易对
 - URL: /Server/api/v2/config/marketList
@@ -3046,7 +3047,8 @@ size最大值为1440，默认值为1
 
 - 接口类型: WebSocket
 
-- URL: wss://fapi.zb.com/ws/public/v1
+- USDT合约URL: wss://fapi.zb.com/ws/public/v1
+- QC合约URL: wss://fapi.zb.com/qc/ws/public/v1
 - 请求参数使用json编码
 
 ### 8.1 订阅
@@ -3516,7 +3518,8 @@ size最大值为100，默认值为1
 
 - 接口类型: WebSocket
 
-- URL: wss://fapi.zb.com/ws/private/api/v2
+- USDT合约URL: wss://fapi.zb.com/ws/private/api/v2
+- QC合约URL: wss://fapi.zb.com/qc/ws/private/api/v2
 
 - **每个请求都必须有的参数：**
 
