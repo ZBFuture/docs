@@ -537,7 +537,7 @@ https://fapi.zb.com
 | 参数名称 | 类型   | 是否可空 | 描述                                    |
 | -------- | ------ | -------- | --------------------------------------- |
 | futuresAccountType     | Int    | 否       | 合约类型，1:USDT合约 |
-|convertUnit |否  |String | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,usdt,btc,默认cny    |
+|convertUnit |String  |否 | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,usdt,btc,默认cny    |
 
 - 响应结果:
 
