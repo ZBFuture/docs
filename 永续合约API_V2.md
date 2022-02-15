@@ -685,7 +685,7 @@ https://fapi.zb.com
   |userId |是  |Long |用户id   |
   |marketId |是  |Long | 市场id    |
   |marketName     |是  |String | 市场名称    |
-  |side     |是  |Integer | 仓位类型,双向开多：1 双向开空：0   单向持仓：2    |
+  |side     |是  |Integer | 仓位类型,双向开多：1 双向开空：0   单向持仓：2 |
   |leverage     |否  |Integer | 杠杆倍数    |
   |amount     |否  |BigDecimal | 持有仓位数量    |
   |freezeAmount     |是  |BigDecimal | 下单冻结仓位数量    |
@@ -1321,7 +1321,7 @@ https://fapi.zb.com
       |modifyTime     |是  |Long | 更新时间    |
       |extend     |是  |String | 备用字段    |
 
-### 4.16 和现货之间资金划转
+### 4.16 和zb之间资金划转
 
 - URL: /Server/api/v2/Fund/transferFund
     - 接口类型: Http
@@ -1950,6 +1950,24 @@ orderId 与 clientOrderId 选填1个
   | orderType | 是   | Integer | `1`：计划委托<br/>`2`：止盈止损                              |
   | amount    | 是   | Decimal | 数量                                                         |
 
+
+​			 **计划委托参数**
+
+| 参数名       | 必选 | 类型    | 说明                           |
+| :----------- | :--- | :------ | :----------------------------- |
+| triggerPrice | 是   | Decimal | 触发价格，填写值0\<X\<=1000000 |
+| algoPrice    | 是   | Decimal | 委托价格，填写值0\<X\<=1000000 |
+
+​		**止盈止损参数**
+
+| 参数名       | 必选 | 类型    | 说明                           |
+| :----------- | :--- | :------ | :----------------------------- |
+| triggerPrice | 是   | Decimal | 触发价格，填写值0\<X\<=1000000 |
+| priceType    | 是   | Integer | `1`:标记价格<br/>`2`:最新价格  |
+| algoPrice    | 是   | Decimal | 委托价格，填写值0\<X\<=1000000 |
+| bizType      | 是   | Integer | `1`:止盈<br/>`2`:止损          |
+
+​
 
 - 响应结果:
 
