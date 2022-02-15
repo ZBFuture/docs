@@ -548,16 +548,18 @@ https://fapi.zb.com
       "data": {
         "account": {//账户信息，包括可用余额、保证金余额、未实现盈亏
           "accountBalance": 996.12,
+          "accountNetBalance":"873.12",
           "allMargin": 1000.13,
           "available": 1002.1,
           "freeze": 2304.1212,
-          "allUnrealizedPnl": -123.789,
+          "allUnrealizedPnl": -123.00,
           
           "accountBalanceConvert": 996.12,
+          "accountNetBalanceConvert":"873.12",
           "allMarginConvert": 1000.13,
           "availableConvert": 1002.1,
           "freezeConvert": 2304.1212,
-          "allUnrealizedPnlConvert": -123.789,
+          "allUnrealizedPnlConvert": -123.00,
          
           "convertUnit": "cny",
           "unit": "usdt",
@@ -587,8 +589,6 @@ https://fapi.zb.com
 |amount     |是  |BigDecimal | 可用资产量    |
 |freezeAmount     |是  |BigDecimal | 冻结量    |
 |id     |否  |Long | 资金id    |
-|accountBalance     |否  |Long | 账户余额    |
-|allUnrealizedPnl     |否  |Long | 账户未实现盈亏    |
 |allMargin     |否  |Long | 账户保证金    |
 |createTime     |否  |Long | 创建时间    |
 |modifyTime     |是  |Long | 更新时间    |
@@ -599,12 +599,15 @@ https://fapi.zb.com
 |参数名|必选|类型|说明|
 |:----    |:---|:----- |:-----   |
 |accountBalance |是  |BigDecimal |账户余额：可用+冻结+所以仓位未实现盈亏   |
+|accountNetBalance     |否  |Long | 账户净资产=可用+冻结+账户未实现盈亏    |
 |allMargin |是  |BigDecimal | 所有仓位保证金    |
 |available     |是  |BigDecimal | 可用资产量    |
 |freeze     |是  |BigDecimal | 冻结量    |
 |allUnrealizedPnl     |是  |BigDecimal | 所有对应仓位的累积未实现盈亏    |
 |unit     |是  |String | 固定返回，如果是u本位，返回usdt，如果是币本位返回btc，如果是qc合约返回qc，统计数据的单位    |
 |allMarginConvert |是  |BigDecimal | 所以仓位保证金折合    |
+|accountBalanceConvert |是  |BigDecimal |账户余额折合：可用+冻结+所以仓位未实现盈亏   |
+|accountNetBalanceConvert     |否  |Long | 账户净资产折合=可用+冻结+账户未实现盈亏    |
 |availableConvert     |是  |BigDecimal | 可用资产量折合    |
 |freezeConvert     |是  |BigDecimal | 冻结量折合    |
 |allUnrealizedPnlConvert     |是  |BigDecimal | 所有对应仓位的累积未实现盈亏折合    |
