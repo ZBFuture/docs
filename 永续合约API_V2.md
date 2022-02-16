@@ -918,7 +918,7 @@ https://fapi.zb.com
   |endTime |否  |Long |结束时间戳   |
   |pageNum |否  |Integer | 页码    |
   |pageSize |否  |Integer | 每页行数，默认10    |
-  |isHistory |否  |Integer | 1:查询历史更多   0：查询最近    |
+  |isHistory |否  |Integer | 1:查询历史更多   0：查询最近   默认0   |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 - 
 
