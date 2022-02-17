@@ -861,7 +861,63 @@ https://fapi.zb.com
       |extend     |是  |String | 备用字段    |
 
 ### 4.6 仓位持仓模式设置
-- 暂未开通，目前默认只支持双向持仓
+
+- URL: /Server/web/v1/setting/setPositionsMode
+    - 接口类型: Http
+    - 请求类型: POST
+    - 请求参数:
+        ```
+      {
+          "marketId":100,
+          "positionsMode":1,
+          "futuresAccountType":1
+      }
+      
+      ```
+
+      |参数名|必选|类型|说明|
+          |:----    |:---|:----- |:-----   |
+      |marketId |是  |Long | 市场id    |
+      |positionsMode |是  |Integer | 1:单向持仓，2: 双向持仓    |
+      |futuresAccountType |是  |Integer | 1:USDT永续合约  2：QC永续合约, 3 币本位合约    |
+
+    - 响应结果:
+      ```json
+       {
+           "code": 10000,
+           "desc": "success",
+           "data": {
+               "userId": 111,
+               "marketId": 100,
+               "leverage": 20,
+               "marginMode": 1,
+               "positionsMode": 2,
+               "enableAutoAppend": 1,
+               "maxAppendAmount": "11212",
+                "marginCoins": "qc,usdt,eth",
+               "id": 6737268451833817088,
+               "createTime": 1606289971312,
+               "modifyTime": 0,
+               "extend": null
+           }
+       }
+      ```
+
+      |参数名|必选|类型|说明|
+          |:----    |:---|:----- |:-----   |
+      |userId |是  |Long |用户id   |
+      |marketId |是  |Long | 市场id    |
+      |leverage     |是  |BigDecimal | 杠杠倍数    |
+      |marginMode     |是  |Integer | 保证金模式：1逐仓（默认），2全仓    |
+      |positionsMode     |否  |Integer | 1:单向持仓，2: 双向持仓    |
+      |id     |否  |Long | 仓位id    |
+      |maxAppendAmount |是  |BigDecimal |最多追加保证金，可能被修改，如果为0会关闭自动增加保证金   |
+      |enableAutoAppend |是  |Integer | 是否开启自动追加保证金 1:开启  0 ：不开启    |
+      |marginCoins |是  |String | 配置的按顺序冻结的保证金，如 eth,usdt,qc    |
+      |createTime     |否  |Long | 创建时间    |
+      |modifyTime     |是  |Long | 更新时间    |
+      |extend     |是  |String | 备用字段    |
+
 
 ### 4.7 仓位保证金模式设置
 - 暂未开通，目前默认只支持逐仓
