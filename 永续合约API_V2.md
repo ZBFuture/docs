@@ -862,7 +862,7 @@ https://fapi.zb.com
 
 ### 4.6 仓位持仓模式设置
 
-- URL: /Server/web/v1/setting/setPositionsMode
+- URL: /Server/api/v2/setting/setPositionsMode
     - 接口类型: Http
     - 请求类型: POST
     - 请求参数:
