@@ -537,7 +537,7 @@ https://fapi.zb.com
 | 参数名称 | 类型   | 是否可空 | 描述                                    |
 | -------- | ------ | -------- | --------------------------------------- |
 | futuresAccountType     | Int    | 否       | 合约类型，1:USDT合约 |
-|convertUnit |String  |否 | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,usdt,btc,默认cny    |
+|convertUnit |否  |String | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,usdt,btc,默认cny    |
 
 - 响应结果:
 
@@ -552,14 +552,14 @@ https://fapi.zb.com
           "allMargin": 1000.13,
           "available": 1002.1,
           "freeze": 2304.1212,
-          "allUnrealizedPnl": -123.00,
+          "allUnrealizedPnl": -123.789,
           
           "accountBalanceConvert": 996.12,
           "accountNetBalanceConvert":"873.12",
           "allMarginConvert": 1000.13,
           "availableConvert": 1002.1,
           "freezeConvert": 2304.1212,
-          "allUnrealizedPnlConvert": -123.00,
+          "allUnrealizedPnlConvert": -123.789,
          
           "convertUnit": "cny",
           "unit": "usdt",
@@ -605,7 +605,7 @@ https://fapi.zb.com
 |freeze     |是  |BigDecimal | 冻结量    |
 |allUnrealizedPnl     |是  |BigDecimal | 所有对应仓位的累积未实现盈亏    |
 |unit     |是  |String | 固定返回，如果是u本位，返回usdt，如果是币本位返回btc，如果是qc合约返回qc，统计数据的单位    |
-|allMarginConvert |是  |BigDecimal | 所以仓位保证金折合    |
+|allMarginConvert |是  |BigDecimal | 所以仓位保证金折合    ||
 |accountBalanceConvert |是  |BigDecimal |账户余额折合：可用+冻结+所以仓位未实现盈亏   |
 |accountNetBalanceConvert     |否  |Long | 账户净资产折合=可用+冻结+账户未实现盈亏    |
 |availableConvert     |是  |BigDecimal | 可用资产量折合    |
@@ -861,63 +861,7 @@ https://fapi.zb.com
       |extend     |是  |String | 备用字段    |
 
 ### 4.6 仓位持仓模式设置
-
-- URL: /Server/api/v2/setting/setPositionsMode
-    - 接口类型: Http
-    - 请求类型: POST
-    - 请求参数:
-        ```
-      {
-          "marketId":100,
-          "positionsMode":1,
-          "futuresAccountType":1
-      }
-      
-      ```
-
-      |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
-      |marketId |是  |Long | 市场id    |
-      |positionsMode |是  |Integer | 1:单向持仓，2: 双向持仓    |
-      |futuresAccountType |是  |Integer | 1:USDT永续合约  2：QC永续合约, 3 币本位合约    |
-
-    - 响应结果:
-      ```json
-       {
-           "code": 10000,
-           "desc": "success",
-           "data": {
-               "userId": 111,
-               "marketId": 100,
-               "leverage": 20,
-               "marginMode": 1,
-               "positionsMode": 2,
-               "enableAutoAppend": 1,
-               "maxAppendAmount": "11212",
-                "marginCoins": "qc,usdt,eth",
-               "id": 6737268451833817088,
-               "createTime": 1606289971312,
-               "modifyTime": 0,
-               "extend": null
-           }
-       }
-      ```
-
-      |参数名|必选|类型|说明|
-          |:----    |:---|:----- |:-----   |
-      |userId |是  |Long |用户id   |
-      |marketId |是  |Long | 市场id    |
-      |leverage     |是  |BigDecimal | 杠杠倍数    |
-      |marginMode     |是  |Integer | 保证金模式：1逐仓（默认），2全仓    |
-      |positionsMode     |否  |Integer | 1:单向持仓，2: 双向持仓    |
-      |id     |否  |Long | 仓位id    |
-      |maxAppendAmount |是  |BigDecimal |最多追加保证金，可能被修改，如果为0会关闭自动增加保证金   |
-      |enableAutoAppend |是  |Integer | 是否开启自动追加保证金 1:开启  0 ：不开启    |
-      |marginCoins |是  |String | 配置的按顺序冻结的保证金，如 eth,usdt,qc    |
-      |createTime     |否  |Long | 创建时间    |
-      |modifyTime     |是  |Long | 更新时间    |
-      |extend     |是  |String | 备用字段    |
-
+- 暂未开通，目前默认只支持双向持仓
 
 ### 4.7 仓位保证金模式设置
 - 暂未开通，目前默认只支持逐仓
@@ -976,7 +920,6 @@ https://fapi.zb.com
   |pageSize |否  |Integer | 每页行数，默认10    |
   |isHistory |否  |Integer | 1:查询历史更多   0：查询最近   默认0   |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
-- 
 
 - 响应结果:
   ```json
@@ -1420,6 +1363,157 @@ https://fapi.zb.com
 
 
 
+
+### 4.17 查询冻结类型信息list
+- URL: /Server/web/v1/Fund/getFreezeTypeList
+- 接口类型: Http
+- 请求类型: GET
+- 请求参数:
+  无
+
+- 响应结果:
+```json
+  
+   {
+    "code": 10000,
+    "data": [
+        {
+        "code": 0,
+        "cnDesc": "下单冻结资金",
+        "enDesc": "order freeze fund"
+        },
+        {
+        "code": 1,
+        "cnDesc": "仓位保证金",
+        "enDesc": "positions freeze fund"
+        },
+        {
+        "code": 2,
+        "cnDesc": "系统冻结资金",
+        "enDesc": "system freeze"
+        },
+        {
+        "code": 3,
+        "cnDesc": "平多冻结仓位",
+        "enDesc": "long positions"
+        },
+        ...
+    ],
+    "desc": "操作成功"
+}
+
+```
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |:-----   |
+|code |是  |Integer |类型   |
+|cnDesc |是  |String | 类型中文描述    |
+|enDesc     |是  |String | 类型英文描述    |
+
+
+
+### 4.18 查询冻结list
+- URL: /Server/web/v1/Fund/getFreeze
+- 接口类型: Http
+- 请求类型: GET
+- 请求参数:
+- |参数名|必选|类型|说明|
+      |:----    |:---|:----- |:-----   |
+  |currencyId |否  |Long |币种id   |
+  |currencyName |否  |Long | 币种名称    |
+  |marketId     |否  |Long | 市场id    |
+  |marketName |否  |BigDecimal |市场名称   |
+  |freezeType     |否  |Integer | 冻结类型，具体类型参数getFreezeTypeList接口    |
+  |startCreateTime |否  |Integer |开始时间   |
+  |endCreateTime |否  |Long | 结束时间    |
+  |pageNum     |否  |Long | 第n页    |
+  |pageSize |否  |String |每页记录数   |
+  |isHistory     |否  |Long | 是否历史 1：历史， 默认0：当前最近记录    |
+
+
+- 响应结果:
+```json
+ 
+   {
+    "code": 10000,
+    "desc": "操作成功",
+    "data": {
+        "pageSize": 10,
+        "pageNum": 1,
+        "list": [
+            {
+                "userId": "6838756832803039232",
+                "fundId": "6881461855223556096",
+                "currencyId": "15",
+                "freezeAmount": "0",
+                "originAmount": "0",
+                "type": 1,
+                "status": 1,
+                "unfreezeTime": "1644255997612",
+                "marketId": "500",
+                "orderId": "6881493271575537669",
+                "pageNum": null,
+                "pageSize": null,
+                "id": "6881493271579731993",
+                "createTime": "1640675847907",
+                "modifyTime": "1644255997612",
+                "extend": null
+                },
+                {
+                "userId": "6838756832803039232",
+                "fundId": "6881461855223556096",
+                "currencyId": "15",
+                "freezeAmount": "12",
+                "originAmount": "0",
+                "type": 5,
+                "status": 1,
+                "unfreezeTime": "1644256004072",
+                "marketId": "501",
+                "orderId": "502",
+                "pageNum": null,
+                "pageSize": null,
+                "id": "6881484039937599508",
+                "createTime": "1640673646912",
+                "modifyTime": "1644256004072",
+                "extend": {"orderRemainingAmount":"0","ofa":{},"bofa":{},"sofa":{},"pfa":{},"theoryBofa":"1.123456","theorySofa":"200.1"}
+                }
+            ]
+    }
+}
+
+```
+
+#### freeze字段说明
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |:-----   |
+|userId |是  |Long |用户id   |
+|fundId |是  |Long | 冻结资金对应的资金记录id    |
+|currencyId     |是  |Long | 币种id    |
+|freezeAmount |是  |BigDecimal |冻结量   |
+|originAmount |是  |BigDecimal | 原始冻结量    |
+|type     |是  |Integer | 冻结类型，具体类型参数getFreezeTypeList接口    |
+|status |是  |Integer |状态  0: 已解冻, 1:冻结   |
+|unfreezeTime |是  |Long | 解冻时间    |
+|marketId     |是  |Long | 市场id    |
+|orderId |是  |String |业务id   |
+|createTime     |是  |Long | 创建时间    |
+|modifyTime |是  |Long |更新时间   |
+
+#### freeze.extend字段说明,有值的情况
+- 当前使用到freezeType=5的情况下有值，单向持仓所有下单累积冻结在一条记录里面
+
+|参数名|必选|类型|说明|
+|:----    |:---|:----- |:-----   |
+|orderRemainingAmount |是  |BigDecimal | 双向持仓使用，此订单剩余交易数量    |
+|theoryBofa     |是  |BigDecimal | 单向持仓使用，累积订单的理论买冻结    |
+|theorySofa |是  |BigDecimal |单向持仓使用，累积订单的理论卖冻结   |
+
+
+
+
+
+
+
 ## 5. 合约交易
 
 ### 5.1 下单
@@ -1434,7 +1528,7 @@ https://fapi.zb.com
 | symbol        | String     | 是       | 交易对，如：BTC_USDT                                         |
 | action        | Integer    | 否       | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>13 最优10档<br/>14 最优20档<br/>19 最优极限档，即在限价上限或下限的最优价格<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>33 最优10档IOC<br/>34 最优20档IOC<br/>39 最优极限档IOC，即在限价上限或下限的最优价格IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/>53 最优10档FOK<br/>54 最优20档FOK<br/>59 最优极限档FOK，即在限价上限或下限的最优价格FOK<br/>默认是1 |
 | side          | Integer    | 是       | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />4 平空（买入) |
-| amount        | BigDecimal | 是       | 委托数量                                                     |
+| amount        | BigDecimal | 是       | 委托数量 (某个仓位平仓所有持仓请使用仓位的 amount-freezeAmount 作为委托数量)        |
 | price         | BigDecimal | 否       | 委托价格，当为对手价或最优5档价格（即为action11，12，31，32，51或52）可以为空，其他均必填 |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
 
@@ -1730,7 +1824,7 @@ orderIds 与 clientOrderIds 选填1个
 | orderCode        | 是   | String     | 自定义订单ID                                                 |
 | marketId         | 是   | Long       | 市场id                                                       |
 | price            | 是   | Decimal    | 委托价格                                                     |
-| amount           | 是   | Decimal    | 委托数量                                                     |
+| amount           | 是   | Decimal    | 委托数量 |
 | value            | 否   | Decimal    | 委托价值，即委托价格 * 委托数量                              |
 | availableAmount  | 否   | Decimal    | 可用委托数量                                                 |
 | availableValue   | 是   | Decimal    | 可用委托价值                                                 |
@@ -1923,6 +2017,7 @@ orderId 与 clientOrderId 选填1个
 
 | 参数名      | 必选 | 类型    | 说明                                                         |
 | :---------- | :--- | :------ | :----------------------------------------------------------- |
+| id          | 是   | Long    | id                                                           |
 | orderId     | 是   | Long    | 订单id                                                       |
 | price       | 是   | Decimal | 成交价格                                                     |
 | amount      | 是   | Decimal | 成交数量                                                     |
@@ -2028,7 +2123,7 @@ orderId 与 clientOrderId 选填1个
 | algoPrice    | 是   | Decimal | 委托价格，填写值0\<X\<=1000000 |
 | bizType      | 是   | Integer | `1`:止盈<br/>`2`:止损          |
 
-​
+
 
 - 响应结果:
 
@@ -2185,7 +2280,7 @@ orderId 与 clientOrderId 选填1个
 | marketId     | 是   | Long    | 市场id                                                       |
 | triggerPrice | 是   | Decimal | 触发价格                                                     |
 | algoPrice    | 是   | Decimal | 委托价格                                                     |
-| amount       | 是   | Decimal | 委托数量                                                     |
+| amount       | 是   | Decimal | 委托数量 |
 | side         | 是   | Integer | `1`:开多(计划委托)<br/>`2`:开空(计划委托)<br/>`3`:平多(止盈止损)<br/>`4`:平空(止盈止损) |
 | orderType    | 是   | Integer | `1`：计划委托<br/>`2`：止盈止损                              |
 | priceType    | 是   | Integer | `1`:标记价格<br/>`2`:最新价格                                |
@@ -4666,7 +4761,7 @@ size最大值为100，默认值为1
   | channel       | 是   | String  | trade.order                                                  |
   | symbol        | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
   | price         | 是   | Decimal | 价格                                                         |
-  | amount        | 是   | Decimal | 数量                                                         |
+  | amount        | 是   | Decimal | 委托数量  (某个仓位平仓所有持仓请使用仓位的 amount-freezeAmount 作为委托数量)    |
   | actionType    | 是   | Integer | 1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/> |
   | side          | 是   | Integer | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
   | clientOrderId | 否   | String | 自定义id |
