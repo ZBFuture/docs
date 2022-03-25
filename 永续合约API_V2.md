@@ -598,7 +598,7 @@ https://fapi.zb.com
 -
 |参数名|必选|类型|说明|
 |:----    |:---|:----- |:-----   |
-|accountBalance |是  |BigDecimal |账户余额：可用+冻结+所以仓位未实现盈亏   |
+|accountBalance |是  |BigDecimal |账户余额：可用+冻结   |
 |accountNetBalance     |否  |Long | 账户净资产=可用+冻结+账户未实现盈亏    |
 |allMargin |是  |BigDecimal | 所有仓位保证金    |
 |available     |是  |BigDecimal | 可用资产量    |
@@ -606,7 +606,7 @@ https://fapi.zb.com
 |allUnrealizedPnl     |是  |BigDecimal | 所有对应仓位的累积未实现盈亏    |
 |unit     |是  |String | 固定返回，如果是u本位，返回usdt，如果是币本位返回btc，如果是qc合约返回qc，统计数据的单位    |
 |allMarginConvert |是  |BigDecimal | 所以仓位保证金折合    ||
-|accountBalanceConvert |是  |BigDecimal |账户余额折合：可用+冻结+所以仓位未实现盈亏   |
+|accountBalanceConvert |是  |BigDecimal |账户余额折合：可用折合+冻结折合   |
 |accountNetBalanceConvert     |否  |Long | 账户净资产折合=可用+冻结+账户未实现盈亏    |
 |availableConvert     |是  |BigDecimal | 可用资产量折合    |
 |freezeConvert     |是  |BigDecimal | 冻结量折合    |
@@ -1527,7 +1527,7 @@ https://fapi.zb.com
 | :------------ | :--------- | :------- | :----------------------------------------------------------- |
 | symbol        | String     | 是       | 交易对，如：BTC_USDT                                         |
 | action        | Integer    | 否       | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>13 最优10档<br/>14 最优20档<br/>19 最优极限档，即在限价上限或下限的最优价格<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>33 最优10档IOC<br/>34 最优20档IOC<br/>39 最优极限档IOC，即在限价上限或下限的最优价格IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/>53 最优10档FOK<br/>54 最优20档FOK<br/>59 最优极限档FOK，即在限价上限或下限的最优价格FOK<br/>默认是1 |
-| side          | Integer    | 是       | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />4 平空（买入) |
+| side          | Integer    | 是       | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />4 平空（买入)）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
 | amount        | BigDecimal | 是       | 委托数量 (某个仓位平仓所有持仓请使用仓位的 amount-freezeAmount 作为委托数量)        |
 | price         | BigDecimal | 否       | 委托价格，当为对手价或最优5档价格（即为action11，12，31，32，51或52）可以为空，其他均必填 |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
