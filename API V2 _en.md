@@ -859,7 +859,8 @@ https://fapi.zb.com
 
       |Name|Required|Type|Description|
                 |:----    |:---|:----- |:-----   |
-      |marketId |Yes  |Long | market id    |
+      |marketId |No  |Long | market id   |
+      |symbol |No  |String | Must choose one of market id and market name    |
       |positionsMode |Yes  |Integer | 1:one way，2: two way    |
       |futuresAccountType |Yes  |Integer | 1:USDT perpetual futures  2:QC perpetual futures    |
 

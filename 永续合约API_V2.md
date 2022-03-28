@@ -870,7 +870,7 @@ https://fapi.zb.com
     - 请求参数:
         ```
       {
-          "marketId":100,
+          "symbol":"btc_usdt",
           "positionsMode":1,
           "futuresAccountType":1
       }
@@ -879,7 +879,8 @@ https://fapi.zb.com
 
       |参数名|必选|类型|说明|
                       |:----    |:---|:----- |:-----   |
-      |marketId |是  |Long | 市场id    |
+      |marketId |否  |Long | 市场id和市场名称必选其一    |
+      |symbol |否  |String | 市场id和市场名称必选其一    |
       |positionsMode |是  |Integer | 1:单向持仓，2: 双向持仓    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约  2：QC永续合约, 3 币本位合约    |
 
