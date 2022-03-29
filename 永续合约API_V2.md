@@ -355,16 +355,16 @@ public class HmacSHA256Base64Utils {
                 // url
                 .reduce(new StringBuilder(),
                         (acc, it) -> {
-                           acc.append("&").append(it.getKey()).append("=");
-                           if (it.getValue() != null &&
-                                   (it.getValue() instanceof Collection ||
-                                           it.getValue().getClass().isArray() ||
-                                           it.getValue() instanceof Map ) ) {
+                            acc.append("&").append(it.getKey()).append("=");
+                            if (it.getValue() != null &&
+                                    (it.getValue() instanceof Collection ||
+                                            it.getValue().getClass().isArray() ||
+                                            it.getValue() instanceof Map ) ) {
                                 acc.append(JSONObject.toJSONString(it.getValue()));
-                           } else {
-                               acc.append(it.getValue());
-                           }
-                           return acc;
+                            } else {
+                                acc.append(it.getValue());
+                            }
+                            return acc;
                         },
                         (l, r) -> null)
                 .deleteCharAt(0);
@@ -538,7 +538,7 @@ https://fapi.zb.com
 
 | 参数名称 | 类型   | 是否可空 | 描述                                    |
 | -------- | ------ | -------- | --------------------------------------- |
-| futuresAccountType     | Int    | 否       | 合约类型，1:USDT合约 |
+| futuresAccountType     | Int    | 否       | 合约类型，1:USDT合约  2: QC合约|
 |convertUnit |否  |String | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,usdt,btc,默认cny    |
 
 - 响应结果:
@@ -608,7 +608,7 @@ https://fapi.zb.com
 |allUnrealizedPnl     |是  |BigDecimal | 所有对应仓位的累积未实现盈亏    |
 |unit     |是  |String | 固定返回，如果是u本位，返回usdt，如果是币本位返回btc，如果是qc合约返回qc，统计数据的单位    |
 |allMarginConvert |是  |BigDecimal | 所以仓位保证金折合    ||
-|accountBalanceConvert |是  |BigDecimal |账户余额折合：可用折合+冻结折合   |
+|accountBalanceConvert |是  |BigDecimal |账户余额折合：可用+冻结   |
 |accountNetBalanceConvert     |否  |Long | 账户净资产折合=可用+冻结+账户未实现盈亏    |
 |availableConvert     |是  |BigDecimal | 可用资产量折合    |
 |freezeConvert     |是  |BigDecimal | 冻结量折合    |
@@ -626,7 +626,7 @@ https://fapi.zb.com
     |:----    |:---|:----- |:-----   |
   |marketId |否  |Long | 市场id和市场名称必选其一    |
   |symbol |否  |String | 市场id和市场名称必选其一    |
-  |side |否  |Integer | 1 多仓  0 空仓    |
+  |side |否  |Integer | 1 多仓  0 空仓 2 单向持仓 |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 
 - 响应结果:
@@ -686,7 +686,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |marketId |是  |Long | 市场id    |
   |marketName     |是  |String | 市场名称    |
@@ -724,7 +724,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |positionsId |是  |Long | 仓位Id    |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
 
@@ -742,7 +742,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-  |:----    |:---|:----- |:-----   |
+    |:----    |:---|:----- |:-----   |
   |maxAdd |是  |BigDecimal |最大可增加保证金   |
   |maxSub |是  |BigDecimal | 最大可减少保证金    |
   |liquidatePrice     |是  |BigDecimal | 预估强平价格    |
@@ -763,7 +763,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |positionsId |是  |Long | 仓位id    |
   |amount |是  |BigDecimal | 变更数量    |
   |type |是  |Integer | 1: 增加  0：减少    |
@@ -819,7 +819,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |marketId |否  |Long | 市场id和市场名称必选其一    |
   |symbol |否  |String | 市场id和市场名称必选其一    |
   |leverage |是  |Integer | 杠杆倍数    |
@@ -848,7 +848,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |userId |是  |Long |用户id   |
       |marketId |是  |Long | 市场id    |
       |leverage     |是  |BigDecimal | 杠杠倍数    |
@@ -863,7 +863,6 @@ https://fapi.zb.com
       |extend     |是  |String | 备用字段    |
 
 ### 4.6 仓位持仓模式设置
-
 - URL: /Server/api/v2/setting/setPositionsMode
     - 接口类型: Http
     - 请求类型: POST
@@ -878,7 +877,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+                |:----    |:---|:----- |:-----   |
       |marketId |否  |Long | 市场id和市场名称必选其一    |
       |symbol |否  |String | 市场id和市场名称必选其一    |
       |positionsMode |是  |Integer | 1:单向持仓，2: 双向持仓    |
@@ -907,7 +906,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-                      |:----    |:---|:----- |:-----   |
+                |:----    |:---|:----- |:-----   |
       |userId |是  |Long |用户id   |
       |marketId |是  |Long | 市场id    |
       |leverage     |是  |BigDecimal | 杠杠倍数    |
@@ -922,7 +921,6 @@ https://fapi.zb.com
       |extend     |是  |String | 备用字段    |
 
 
-
 ### 4.7 仓位保证金模式设置
 - 暂未开通，目前默认只支持逐仓
 
@@ -933,7 +931,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |marketId |否  |Long | 市场id和市场名称必选其一    |
   |symbol |否  |String | 市场id和市场名称必选其一    |
   |side |否  |Integer | 方向：1：开多   0 开空    |
@@ -953,7 +951,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |marketId |是  |Long | 市场id    |
   |side |是  |Long | 1:多仓 0：空仓    |
   |nominalValue |否  |BigDecimal |用户仓位头寸名义价值 （传side时返回）  |
@@ -970,7 +968,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |currencyId |否  |Long | 币种id    |
   |currencyName |否  |String | 币种名字    |
   |type |否  |Integer |账单类型   |
@@ -1041,7 +1039,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |freezeId |是  |String | 冻结id    |
   |type     |是  |BigDecimal | 账单类型    |
@@ -1095,7 +1093,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |code |是  |Integer |账单类型   |
   |cnDesc |是  |String | 账单类型中文描述    |
   |enDesc     |是  |String | 账单类型英文描述    |
@@ -1112,7 +1110,7 @@ https://fapi.zb.com
     ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |symbol |否  |String | 市场,如 ETH_USDT    |
   |startTime |否  |Long | 毫秒时间戳    |
   |endTime |否  |Long | 毫秒时间戳    |
@@ -1157,7 +1155,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |symbol |是  |String |市场，如ETH_USDT   |
       |asset |是  |String | 保证金币种，可能1个或者多个，如 USDT,ETH    |
       |amount     |是  |String | 保证金数量，可能多个，如 USDT:121210.00001, ETH:0.0002    |
@@ -1180,7 +1178,7 @@ https://fapi.zb.com
         - marketId: 市场id
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |marketId |是  |Long | 市场id    |
       |symbol |是  |String | 市场名称    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1208,7 +1206,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |marketId |是  |Long | 市场id    |
   |leverage     |是  |BigDecimal | 杠杠倍数    |
@@ -1234,7 +1232,7 @@ https://fapi.zb.com
 - 请求参数:
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |currencyId |否  |String | 币种id    |
   |currencyName |否  |String | 币种名称    |
   |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1276,7 +1274,7 @@ https://fapi.zb.com
   ```
 
   |参数名|必选|类型|说明|
-    |:----    |:---|:----- |:-----   |
+      |:----    |:---|:----- |:-----   |
   |userId |是  |Long |用户id   |
   |currencyId |是  |Long | 币种id    |
   |currencyName |是  |String | 币种名字    |
@@ -1308,7 +1306,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |positionsId |是  |Long | 仓位ID    |
       |maxAdditionalUSDValue |是  |BigDecimal | 设置增加的保证金数量，如果为0会关闭自动增加保证金    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1323,7 +1321,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |data |是  |String |本次操作的clientId，由秒时间戳+仓位ID 组成   |
 
 ### 4.15 设置保证金使用顺序
@@ -1343,7 +1341,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |symbol |是  |String | 市场名称    |
       |marginCoins |是  |String | 设置保证金顺序    |
       |futuresAccountType |是  |Integer | 1:USDT永续合约    |
@@ -1371,7 +1369,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |userId |是  |Long |用户id   |
       |marketId |是  |Long | 市场id    |
       |leverage     |是  |BigDecimal | 杠杠倍数    |
@@ -1402,7 +1400,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |currencyName |是  |String | 币种名称    |
       |amount |是  |BigDecimal | 划转数量,进度参考币种信息    |
       |clientId |是  |String | 唯一id，保持幂等性，不能为空或长度不能超过18    |
@@ -1418,7 +1416,7 @@ https://fapi.zb.com
       ```
 
       |参数名|必选|类型|说明|
-      |:----    |:---|:----- |:-----   |
+            |:----    |:---|:----- |:-----   |
       |data |是  |String |操作成功返回幂等id，否则返回null   |
 
 
@@ -1587,7 +1585,7 @@ https://fapi.zb.com
 | :------------ | :--------- | :------- | :----------------------------------------------------------- |
 | symbol        | String     | 是       | 交易对，如：BTC_USDT                                         |
 | action        | Integer    | 否       | 订单价格类型:  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>13 最优10档<br/>14 最优20档<br/>19 最优极限档，即在限价上限或下限的最优价格<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>33 最优10档IOC<br/>34 最优20档IOC<br/>39 最优极限档IOC，即在限价上限或下限的最优价格IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/>53 最优10档FOK<br/>54 最优20档FOK<br/>59 最优极限档FOK，即在限价上限或下限的最优价格FOK<br/>默认是1 |
-| side          | Integer    | 是       | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br />4 平空（买入)）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
+| side          | Integer    | 是       | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
 | amount        | BigDecimal | 是       | 委托数量 (某个仓位平仓所有持仓请使用仓位的 amount-freezeAmount 作为委托数量)        |
 | price         | BigDecimal | 否       | 委托价格，当为对手价或最优5档价格（即为action11，12，31，32，51或52）可以为空，其他均必填 |
 | clientOrderId | String     | 否       | 用户自定义的订单号，不可以重复出现在挂单中。必须满足正则规则 `^[a-zA-Z0-9-_]{1,36}$` |
@@ -1884,7 +1882,7 @@ orderIds 与 clientOrderIds 选填1个
 | orderCode        | 是   | String     | 自定义订单ID                                                 |
 | marketId         | 是   | Long       | 市场id                                                       |
 | price            | 是   | Decimal    | 委托价格                                                     |
-| amount           | 是   | Decimal    | 委托数量 |
+| amount           | 是   | Decimal    | 委托数量                                                     |
 | value            | 否   | Decimal    | 委托价值，即委托价格 * 委托数量                              |
 | availableAmount  | 否   | Decimal    | 可用委托数量                                                 |
 | availableValue   | 是   | Decimal    | 可用委托价值                                                 |
@@ -1924,7 +1922,7 @@ orderIds 与 clientOrderIds 选填1个
 | :-------- | :----- | :------- | :----------------------------------------------------------- |
 | symbol    | String | 是       | 交易对，如：BTC_USDT                                         |
 | type      | 否     | Integer  | 类型: -1 卖, 1 买， 0或空则查询全部                          |
-| side      | 否     | Integer  | 方向， 0或空则查询全部<br/>1开多（买入）<br/>2开空（卖出）<br/>3平多（卖出）<br/>4平空（买入） |
+| side      | 否     | Integer  | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
 | dateRange | 否     | Integer  | 查询类型<br/>0 最近委托，默认值<br/>1 更多委托               |
 | action    | 否     | Integer  | 订单价格类型， 0或空则查询全部  <br/>1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   Only Maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK |
 | startTime | LONG   | 否       | 起始时间                                                     |
@@ -2077,14 +2075,14 @@ orderId 与 clientOrderId 选填1个
 
 | 参数名      | 必选 | 类型    | 说明                                                         |
 | :---------- | :--- | :------ | :----------------------------------------------------------- |
-| id          | 是   | Long    | id                                                           |
+| id          | 是   | Long    | 成交明细id                                                   |
 | orderId     | 是   | Long    | 订单id                                                       |
 | price       | 是   | Decimal | 成交价格                                                     |
 | amount      | 是   | Decimal | 成交数量                                                     |
 | feeAmount   | 是   | Decimal | 手续费                                                       |
 | feeCurrency | 是   | String  | 手续费币种                                                   |
 | relizedPnl  | 是   | Decimal | 已实现盈亏                                                   |
-| side        | 是   | Integer | 向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
+| side        | 是   | Integer | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>7 只减仓平多<br/>8 只减仓平空 |
 | maker       | 是   | Boolean | 是否maker,否则为taker                                        |
 | createTime  | 是   | Long    | 成交时间戳                                                   |
 
@@ -2105,7 +2103,7 @@ orderId 与 clientOrderId 选填1个
   | 参数名    | 必选 | 类型    | 说明                                                         |
     | :-------- | :--- | :------ | :----------------------------------------------------------- |
   | symbol    | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
-  | side      | 否   | Integer | 方向：<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入） |
+  | side      | 否   | Integer | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
   | dateRange | 否   | Integer | 查询类型<br/>0 最近委托，默认值<br/>1 更多委托               |
   | startTime | 否   | Long    | 开始时间，Unix时间戳的毫秒数格式，如 `1608862284859`         |
   | endTime   | 否   | Long    | 结束时间，Unix时间戳的毫秒数格式，如 `1608862284859`         |
@@ -2226,7 +2224,7 @@ orderId 与 clientOrderId 选填1个
     | :----- | :--- | :----------- | :----------------------------------------------------------- |
   | symbol | 是   | String       | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
   | ids    | 否   | List<String> | 撤销指定的委托单ID                                           |
-  | side   | 否   | Integer      | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓  |
+  | side   | 否   | Integer      | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
 
   优先根据ids进行撤销，若ids和side都为空则取消该市场的所有委托策略
 
@@ -2340,7 +2338,7 @@ orderId 与 clientOrderId 选填1个
 | marketId     | 是   | Long    | 市场id                                                       |
 | triggerPrice | 是   | Decimal | 触发价格                                                     |
 | algoPrice    | 是   | Decimal | 委托价格                                                     |
-| amount       | 是   | Decimal | 委托数量 |
+| amount       | 是   | Decimal | 委托数量                                                     |
 | side         | 是   | Integer | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
 | orderType    | 是   | Integer | `1`：计划委托<br/>`2`：止盈止损                              |
 | priceType    | 是   | Integer | `1`:标记价格<br/>`2`:最新价格                                |
@@ -2369,7 +2367,7 @@ orderId 与 clientOrderId 选填1个
 - 请求参数:
 
   | 参数名     | 必选 | 类型   | 说明                                                         |
-    | :--------- | :--- | :----- | :----------------------------------------------------------- |
+      | :--------- | :--- | :----- | :----------------------------------------------------------- |
   | symbol     | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
   | orderId    | 是   | Long   | 订单号                                                       |
   | orderAlgos | 是   | List   | 止盈止损参数，如："orderAlgos":[{"bizType":1,"priceType":1,"triggerPrice":"70000"},{"bizType":2,"priceType":1,"triggerPrice":"40000"}] |
@@ -2377,7 +2375,7 @@ orderId 与 clientOrderId 选填1个
 - 止盈止损参数说明
 
   | 参数名       | 必选 | 类型    | 说明                               |
-    | :----------- | :--- | :------ | :--------------------------------- |
+      | :----------- | :--- | :------ | :--------------------------------- |
   | bizType      | 是   | Integer | 类型，1：止盈，2：止损             |
   | priceType    | 是   | Integer | 价格类型，1：标记价格，2：最新价格 |
   | triggerPrice | 是   | Decimal | 触发价格                           |
@@ -2464,7 +2462,7 @@ subAccount: {periodId: 期id(activityPeriodId)}
 - 请求参数:
 
   | 参数名 | 必选 | 类型    | 说明                                         |
-    | :----- | :--- | :------ | :------------------------------------------- |
+      | :----- | :--- | :------ | :------------------------------------------- |
   | activityPeriodId | 是   | Integer  | | 参与的期 id
 
 - 响应结果:
@@ -2492,7 +2490,7 @@ QC合约地址：https://fapi.zb.com/qc
 - 请求参数:
 
   | 名称         | 类型     | 是否必须 | 描述      |
-    | :---------- | :----- | :--- | :------ |
+      | :---------- | :----- | :--- | :------ |
   | futuresAccountType | Integer | 否    | 合约类型，1:USDT合约（默认） |
 
 - 响应结果:
@@ -2562,7 +2560,7 @@ QC合约地址：https://fapi.zb.com/qc
 | maxLeverage | Integer |     | 最大杠杆倍数 |
 | riskWarnRatio | BigDecimal |     | 风险提醒比例 |
 | defaultFeeRate | BigDecimal |     | 默认费率 |
-| contractType | Integer |     | 合约类型，1:usdt合约（默认） |
+| contractType | Integer |     | 合约类型，1:usdt合约（默认） 2 qc合约 |
 | duration | Integer |     | 合约时长，<br/>1:永续合约（默认），<br/>2:交割合约-当周，<br/>3:交割合约-次周，<br/>4:交割合约-当季，<br/>5:交割合约-次季 |
 | status | Integer |     | 状态: 1:运行, 0:停止（默认） |
 | createTime | Long |     | 创建时间 |
@@ -2588,7 +2586,7 @@ QC合约地址：https://fapi.zb.com/qc
 - 请求参数:
 
   | 名称   | 类型    | 是否必须 | 描述                 |
-    | :----- | :------ | :------- | :------------------- |
+      | :----- | :------ | :------- | :------------------- |
   | symbol | String  | 是       | 交易对，如：BTC_USDT |
   | size   | Integer | 否       | 条数                 |
   | scale  | Integer | 否       | 精度                 |
@@ -2685,7 +2683,7 @@ size最大值为1440，默认值为1
 - 请求参数:
 
   | 名称   | 类型    | 是否必须 | 描述                 |
-    | :----- | :------ | :------- | :------------------- |
+      | :----- | :------ | :------- | :------------------- |
   | symbol | String  | 是       | 交易对，如：BTC_USDT |
   | size   | Integer | 否       | 条数                 |
 
@@ -3721,7 +3719,7 @@ size最大值为100，默认值为1
 - **请求参数：**
 
   | 参数名 | 必选 | 类型   | 说明 |
-    | :----- | :--- | :----- | :--- |
+      | :----- | :--- | :----- | :--- |
   | action | 是   | String | ping |
 
 
@@ -3755,7 +3753,7 @@ size最大值为100，默认值为1
 - **每个请求都必须有的参数：**
 
   | 参数名  | 必选 | 类型   | 说明                                             |
-    | :------ | :--- | :----- | :----------------------------------------------- |
+      | :------ | :--- | :----- | :----------------------------------------------- |
   | action  | 是   | String | subscribe:订阅  unSubscribe:取消订阅  login:登录 |
   | channel | 是   | String | 频道，代表不同的订阅内容                         |
 
@@ -3806,7 +3804,7 @@ size最大值为100，默认值为1
 - **请求参数：**
 
   | 参数名 | 必选 | 类型   | 说明 |
-    | :----- | :--- | :----- | :--- |
+      | :----- | :--- | :----- | :--- |
   | action | 是   | String | ping |
 
 
@@ -3834,7 +3832,7 @@ size最大值为100，默认值为1
 - **请求参数：**
 
   | 参数名       | 必选 | 类型   | 说明                                             |
-    | :----------- | :--- | :----- | :----------------------------------------------- |
+      | :----------- | :--- | :----- | :----------------------------------------------- |
   | action       | 是   | String | login:登录                                       |
   | ZB-APIKEY    | 是   | String | 由zb平台生成用户的api key                        |
   | ZB-TIMESTAMP | 是   | String | 请求时间，为ISO格式，如`2021-01-05T14:05:28.616Z |
@@ -3892,7 +3890,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名   | 必选 | 类型   | 说明        |
-    | :------- | :--- | :----- | :---------- |
+      | :------- | :--- | :----- | :---------- |
   | channel  | 是   | String | Fund.change |
   | currency | 是   | String | 币种，如BTC |
 
@@ -3945,7 +3943,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名   | 必选 | 类型   | 说明         |
-    | :------- | :--- | :----- | :----------- |
+      | :------- | :--- | :----- | :----------- |
   | channel  | 是   | String | Fund.balance |
   | currency | 否   | String | 币种，如BTC  |
 
@@ -3999,7 +3997,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名    | 必选 | 类型    | 说明             |
-    | :-------- | :--- | :------ | ---------------- |
+      | :-------- | :--- | :------ | ---------------- |
   | channel   | 是   | String  | Fund.getBill     |
   | currency  | 否   | String  | 币种，如BTC      |
   | type      | 否   | Integer | 账单类型         |
@@ -4106,7 +4104,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名      | 必选 | 类型   | 说明                                                         |
-    | :---------- | :--- | :----- | :----------------------------------------------------------- |
+      | :---------- | :--- | :----- | :----------------------------------------------------------- |
   | channel     | 是   | String | Fund.assetChange                                             |
   | convertUnit | 否   | String | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,btc,默认cny |
 
@@ -4174,7 +4172,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名      | 必选 | 类型   | 说明                                                         |
-    | :---------- | :--- | :----- | :----------------------------------------------------------- |
+      | :---------- | :--- | :----- | :----------------------------------------------------------- |
   | channel     | 是   | String | Fund.assetInfo                                               |
   | convertUnit | 否   | String | 折合单位，页面显示上"≈"号后面的数字单位，可选：cny，usd,btc,默认cny。不能同时订阅多种折合单位。后面订阅会自动取消前面的订阅。 |
 
@@ -4226,7 +4224,7 @@ size最大值为100，默认值为1
 - **仓位请求都必须有的参数：**
 
   | 参数名             | 必选 | 类型    | 说明           |
-    | :----------------- | :--- | :------ | :------------- |
+      | :----------------- | :--- | :------ | :------------- |
   | futuresAccountType | 是   | Integer | 1:USDT永续合约 |
 
 
@@ -4237,7 +4235,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名  | 必选 | 类型   | 说明                                       |
-    | :------ | :--- | :----- | :----------------------------------------- |
+      | :------ | :--- | :----- | :----------------------------------------- |
   | channel | 是   | String | Positions.change                           |
   | symbol  | 否   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
 
@@ -4324,7 +4322,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名  | 必选 | 类型   | 说明                                       |
-    | :------ | :--- | :----- | :----------------------------------------- |
+      | :------ | :--- | :----- | :----------------------------------------- |
   | channel | 是   | String | Positions.getPositions                     |
   | symbol  | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
 
@@ -4417,7 +4415,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名      | 必选 | 类型   | 说明                 |
-    | :---------- | :--- | :----- | :------------------- |
+      | :---------- | :--- | :----- | :------------------- |
   | channel     | 是   | String | Positions.marginInfo |
   | positionsId | 是   | Long   | 仓位id               |
 
@@ -4456,7 +4454,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名      | 必选 | 类型       | 说明                   |
-    | :---------- | :--- | :--------- | :--------------------- |
+      | :---------- | :--- | :--------- | :--------------------- |
   | channel     | 是   | String     | Positions.updateMargin |
   | positionsId | 是   | Long       | 仓位id                 |
   | amount      | 是   | BigDecimal | 变动数量               |
@@ -4525,7 +4523,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名  | 必选 | 类型   | 说明                                       |
-    | :------ | :--- | :----- | :----------------------------------------- |
+      | :------ | :--- | :----- | :----------------------------------------- |
   | channel | 是   | String | Positions.getSetting                       |
   | symbol  | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
 
@@ -4569,7 +4567,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名   | 必选 | 类型    | 说明                                       |
-    | :------- | :--- | :------ | :----------------------------------------- |
+      | :------- | :--- | :------ | :----------------------------------------- |
   | channel  | 是   | String  | Positions.setLeverage                      |
   | symbol   | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | leverage | 是   | Integer | 杠杆倍数                                   |
@@ -4617,7 +4615,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名        | 必选 | 类型    | 说明                                       |
-    | :------------ | :--- | :------ | :----------------------------------------- |
+      | :------------ | :--- | :------ | :----------------------------------------- |
   | channel       | 是   | String  | Positions.setPositionsMode                 |
   | symbol        | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | positionsMode | 是   | Integer | 1:单向持仓，2: 双向持仓                    |
@@ -4661,7 +4659,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名     | 必选 | 类型    | 说明                                       |
-    | :--------- | :--- | :------ | :----------------------------------------- |
+      | :--------- | :--- | :------ | :----------------------------------------- |
   | channel    | 是   | String  | Positions.setMarginMode                    |
   | symbol     | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | marginMode | 是   | Integer | 1逐仓（默认），2全仓                       |
@@ -4705,7 +4703,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名  | 必选 | 类型    | 说明                                       |
-    | :------ | :--- | :------ | :----------------------------------------- |
+      | :------ | :--- | :------ | :----------------------------------------- |
   | channel | 是   | String  | Positions.getNominalValue                  |
   | symbol  | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | side    | 是   | Integer | 方向：1：开多   0 开空                     |
@@ -4754,7 +4752,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名  | 必选 | 类型   | 说明                                       |
-    | :------ | :--- | :----- | :----------------------------------------- |
+      | :------ | :--- | :----- | :----------------------------------------- |
   | channel | 是   | String | trade.orderChange                          |
   | symbol  | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
 
@@ -4821,9 +4819,9 @@ size最大值为100，默认值为1
   | channel       | 是   | String  | trade.order                                                  |
   | symbol        | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT                   |
   | price         | 是   | Decimal | 价格                                                         |
-  | amount        | 是   | Decimal | 委托数量  (某个仓位平仓所有持仓请使用仓位的 amount-freezeAmount 作为委托数量)    |
+  | amount        | 是   | Decimal | 数量                                                         |
   | actionType    | 是   | Integer | 1   限价<br/>11 对手价<br/>12 最优5档<br/>3   IOC<br/>31 对手价IOC<br/>32 最优5档IOC<br/>4   只做 maker<br/>5   FOK<br/>51 对手价FOK<br/>52 最优5档FOK<br/> |
-  | side          | 是   | Integer | 方向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
+  | side          | 是   | Integer | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
   | clientOrderId | 否   | String | 自定义id |
 
 - 请求示例
@@ -4867,7 +4865,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名        | 必选 | 类型   | 说明                                       |
-    | ------------- | ---- | :----- | :----------------------------------------- |
+      | ------------- | ---- | :----- | :----------------------------------------- |
   | channel       | 是   | String | trade.getOrder                             |
   | symbol        | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | orderId       | 否   | Long   | 订单ID                                     |
@@ -4935,7 +4933,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名        | 必选 | 类型   | 说明                                       |
-    | ------------- | ---- | :----- | :----------------------------------------- |
+      | ------------- | ---- | :----- | :----------------------------------------- |
   | channel       | 是   | String | trade.cancelOrder                          |
   | symbol        | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | orderId       | 否   | Long   | 订单ID                                     |
@@ -5056,7 +5054,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名   | 必选 | 类型    | 说明                                       |
-    | -------- | ---- | :------ | :----------------------------------------- |
+      | -------- | ---- | :------ | :----------------------------------------- |
   | channel  | 是   | String  | trade.getUndoneOrders                      |
   | symbol   | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | pageNum  | 是   | Integer | 页码，从1开始                              |
@@ -5146,7 +5144,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名    | 必选 | 类型    | 说明                                       |
-    | --------- | ---- | :------ | :----------------------------------------- |
+      | --------- | ---- | :------ | :----------------------------------------- |
   | channel   | 是   | String  | trade.getAllOrders                         |
   | symbol    | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | startTime | 否   | Long    | 开始时间                                   |
@@ -5240,7 +5238,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名  | 必选 | 类型   | 说明                                       |
-    | ------- | ---- | :----- | :----------------------------------------- |
+      | ------- | ---- | :----- | :----------------------------------------- |
   | channel | 是   | String | trade.getTradeList                         |
   | symbol  | 是   | String | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | orderId | 是   | Long   | 订单ID                                     |
@@ -5304,7 +5302,7 @@ size最大值为100，默认值为1
 | feeAmount   | 是   | Decimal | 手续费                                                       |
 | feeCurrency | 是   | String  | 手续费币种                                                   |
 | relizedPnl  | 是   | Decimal | 已实现盈亏                                                   |
-| side        | 是   | Integer | 向：1开多（买入），2开空（卖出），3平多（卖出），4平空（买入） |
+| side        | 是   | Integer | 方向：<br/>**双向持仓**<br/>1 开多（买入）<br/>2 开空（卖出）<br/>3 平多（卖出）<br/>4 平空（买入）<br/>**单向持仓**<br/>5 买入<br/>6 卖出<br/>0 仅平仓 |
 | maker       | 是   | Boolean | 是否maker,否则为taker                                        |
 | createTime  | 是   | Long    | 成交时间戳                                                   |
 
@@ -5315,7 +5313,7 @@ size最大值为100，默认值为1
 - **特有的参数：**
 
   | 参数名    | 必选 | 类型    | 说明                                       |
-    | --------- | ---- | :------ | :----------------------------------------- |
+      | --------- | ---- | :------ | :----------------------------------------- |
   | channel   | 是   | String  | trade.tradeHistory                         |
   | symbol    | 是   | String  | 合约，即市场交易对唯一标识符，如：BTC_USDT |
   | startTime | 否   | Long    | 开始时间                                   |
