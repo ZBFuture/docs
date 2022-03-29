@@ -1904,7 +1904,11 @@ orderIds 与 clientOrderIds 选填1个
 | bizType          | 是   | Integer    | 类型，1：止盈，2：止损                                       |
 | priceType        | 是   | Integer    | 价格类型，1：标记价格，2：最新价格                           |
 | triggerPrice     | 是   | Decimal    | 触发价格                                                     |
-| status           | 是   | Integer    | 状态，0：未生效，1：已生效                                   |
+| status           | 是   | Integer    | 状态，0：未生效，1：已生效                                 |
+| lastTradePrice   | 否   | Integer    | 最后成交价                                             |
+| lastTradeAmount  | 否   | Integer    | 最后成交量                                             |
+| lastTradeId      | 否   | Integer    | 最后成交 ID                                           |
+| lastTradeTime    | 否   | Integer    | 最后成交时间                                   |
 
 
 
@@ -4798,7 +4802,11 @@ size最大值为100，默认值为1
     "tradeValue":"0",
     "type":1,
     "userId":"6755772669834045440",
-    "value":"2022.1"
+    "value":"2022.1",
+    "lastTradePrice": "40118.02",
+    "lastTradeAmount: "0.31" ,
+    "lastTradeId": "67559926698340432891",
+    "lastTradeTime": 1617955686930
   }
 }
 ```

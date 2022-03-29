@@ -1893,7 +1893,11 @@ Response parameter description data
 | bizType          | Yes   | Integer    | Type，1：TP，2：SL                                       |
 | priceType        | Yes   | Integer    | Price type，1：Mark price，2：Last price                           |
 | triggerPrice     | Yes   | Decimal    | Trigger price                                                     |
-| status           | Yes   | Integer    | state，0：Not active，1：In force                                   |
+| status           | Yes   | Integer    | state，0：Not active，1：In force                                 |
+| lastTradePrice   | 否   | Integer    | last Trade Price                                             |
+| lastTradeAmount  | 否   | Integer    | last Trade Amount                                             |
+| lastTradeId      | 否   | Integer    | last TradeId                                          |
+| lastTradeTime    | 否   | Integer    | last Trade Time                                   |
 
 
 
@@ -4786,7 +4790,11 @@ Only user position changes. Positions.change will be pushed if there is a change
         "tradeValue":"0",
         "type":1,
         "userId":"6755772669834045440",
-        "value":"2022.1"
+        "value":"2022.1",
+        "lastTradePrice": "40118.02",
+        "lastTradeAmount: "0.31" ,
+        "lastTradeId": "67559926698340432891",
+        "lastTradeTime": 1617955686930
     }
 }
 ```
