@@ -10,7 +10,7 @@
         * [1\.3\.6\. JavaCode example](#136-java-code-example)
         * [1\.3\.7\. Python example](#137-python代码示例)
         * [1\.3\.8\. requestPath](#1-3-3-requestPath)
-    * [1\.4\. Access Limit Frequency Rules](#1-4-Access Limit Frequency Rules)
+    * [1\.4\. Access Limit Frequency Rules](#14-Access Limit Frequency Rules)
 * [2\. Response rules](#2-response-rules)
 * [3\. Server address](#3-server-address)
 * [4\. Accounts and transactions](#4-accounts-and-transactions)
