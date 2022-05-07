@@ -8,7 +8,7 @@
         * [1\.3\.4\. Compose the final string to be calculated for signature](#134-compose-the-final-string-to-be-calculated-for-signature)
         * [1\.3\.5\. Time synchronization security](#135-time-synchronization-security)
         * [1\.3\.6\. Java code example](#136-java-code-example)
-        * [1\.3\.7\. Python代码示例](#137-python代码示例)
+        * [1\.3\.7\. Python code example](#137-python-code-example)
         * [1\.3\.8\. requestPath](#138-requestpath)
     * [1\.4\. Access Limit Frequency Rules](#14-access-limit-frequency-rules)
 * [2\. Response rules](#2-response-rules)
@@ -373,7 +373,7 @@ public class HmacSHA256Base64Utils {
 }
 ```
 
-#### 1.3.7. Python代码示例
+#### 1.3.7. Python code example
 
 ```
 import hmac
