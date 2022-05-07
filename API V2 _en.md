@@ -10,6 +10,7 @@
         * [1\.3\.6\. JavaCode example](#136-java-code-example)
         * [1\.3\.7\. Python example](#137-python代码示例)
         * [1\.3\.8\. requestPath](#1-3-3-requestPath)
+    * [1\.4\. Access Limit Frequency Rules](#1-4-Access Limit Frequency Rules)
 * [2\. Response rules](#2-response-rules)
 * [3\. Server address](#3-server-address)
 * [4\. Accounts and transactions](#4-accounts-and-transactions)
@@ -460,6 +461,14 @@ if __name__ == '__main__':
 
 请求接口路径，USDT合约以/usdt开头，QC合约以/qc开头。如：`/usdt/Server/api/v1/trade/getOrder`
 
+
+### 1.4. Access Limit Frequency Rules
+
+- Rest API
+  The default number of requests for a single interface is 100 times/2s
+
+- Websocket API
+  The default limit for the number of requests for a single interface is 200 times/2s
 
 
 ## 2. Response rules
