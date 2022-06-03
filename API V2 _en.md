@@ -537,7 +537,7 @@ https://fapi.zb.com
 | futuresAccountType     | Int    | No      | Contract type，1: USDT contract |
 |convertUnit |String  |No | Converted unit, the page displays the number unit after the "≈" sign，Optional options：cny，usd,usdt,btc,the default is cny    |
 
-  - Response result:
+- Response result:
 
   ```json
     {
