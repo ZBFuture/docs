@@ -2632,7 +2632,7 @@ QC futures：https://fapi.zb.com/qc
 
 ### 7.3  Candlestick
 
-  - URL: /api/public/v1/kCline
+  - URL: /api/public/v1/kline
   - Interface Type: Http
   - Request type: GET 
 
